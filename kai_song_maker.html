@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAI Song Maker</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111827;color:#f8fafc;font-family:Arial,sans-serif;overflow:hidden}
+header{height:64px;background:#1f2937;display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #374151}
+h1{font-size:20px;margin:0 18px 0 0}.btn,select,input{background:#273449;color:#fff;border:1px solid #4b5563;border-radius:7px;padding:8px 10px}.btn{cursor:pointer}.btn:hover{background:#334155}
+main{height:calc(100vh - 64px);display:flex}.sidebar{width:235px;background:#172033;border-right:1px solid #374151;padding:12px;overflow:auto}
+.sidebar h3{margin:7px 0 10px;font-size:13px;color:#cbd5e1}.track{display:flex;align-items:center;gap:7px;padding:8px;margin:5px 0;border-radius:7px;background:#202c40;cursor:pointer}.track.active{outline:2px solid #60a5fa}.track .dot{width:13px;height:13px;border-radius:50%;background:#60a5fa}.track button{margin-left:auto;padding:3px 7px}.controls{display:grid;gap:8px}
+.editor{flex:1;display:flex;flex-direction:column;min-width:0}.toolbar{height:58px;display:flex;align-items:center;gap:9px;padding:8px 12px;border-bottom:1px solid #374151;overflow:auto;white-space:nowrap}
+.note-tools{display:flex;gap:5px}.note-tools button.selected,.acc button.selected{background:#2563eb}
+.roll-wrap{flex:1;overflow:auto;background:#0b1220}.roll{position:relative;min-width:1450px;width:max-content;display:flex}.keys{position:sticky;left:0;z-index:5;width:70px;background:#111827;flex:none}
+.key{height:28px;border-bottom:1px solid #293548;display:flex;align-items:center;justify-content:center;font-size:11px}.key.black{background:#05080d;color:#cbd5e1}.key.white{background:#e5e7eb;color:#111827}
+.grid{position:relative;width:1380px}.row{height:28px;border-bottom:1px solid #293548;position:relative}.row.black{background:rgba(0,0,0,.25)}.row.white{background:rgba(255,255,255,.025)}
+.beat{position:absolute;top:0;bottom:0;border-left:1px solid #344258}.measure{border-left:2px solid #64748b}.note{position:absolute;height:24px;margin-top:2px;border-radius:5px;background:#60a5fa;border:1px solid #bfdbfe;cursor:pointer;box-shadow:0 1px 4px #0008}.note:hover{filter:brightness(1.18)}.playhead{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:4;pointer-events:none}
+.bottom{height:58px;background:#1f2937;border-top:1px solid #374151;padding:8px 12px;display:flex;align-items:center;gap:18px}.status{color:#cbd5e1;font-size:13px}
+label{font-size:12px;color:#cbd5e1}input[type=range]{width:90px;padding:0}.hint{font-size:11px;color:#94a3b8;line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+<h1>🎵 KAI Song Maker</h1>
+<button class="btn" id="play">▶ Play</button><button class="btn" id="stop">■ Stop</button>
+<label>BPM <input id="bpm" type="number" min="40" max="240" value="120" style="width:65px"></label>
+<label>Master <input id="master" type="range" min="0" max="1" step=".01" value=".8"></label>
+<button class="btn" id="save">💾 Save</button><button class="btn" id="load">📂 Load</button>
+</header>
+<main>
+<aside class="sidebar">
+<h3>INSTRUMENT TRACKS</h3><div id="tracks"></div>
+<h3>ADD INSTRUMENT</h3>
+<div class="controls"><select id="instrument"></select><button class="btn" id="add">＋ Add Track</button></div>
+<h3>SELECTED TRACK</h3><div class="hint">Click a track, then click the piano roll to place notes. Click a note to remove it.</div>
+</aside>
+<section class="editor">
+<div class="toolbar">
+<div class="note-tools" id="lengths"></div>
+<div class="acc" id="acc"></div>
+<label>Octave <select id="oct"><option>3</option><option selected>4</option><option>5</option><option>6</option></select></label>
+<span class="status" id="status">Piano • Quarter • Natural</span>
+</div>
+<div class="roll-wrap"><div class="roll"><div class="keys" id="keys"></div><div class="grid" id="grid"><div class="playhead" id="playhead"></div></div></div></div>
+<div class="bottom"><span class="status">♫ Each track can play simultaneously</span><span class="hint">Space = play/stop • Click notes to erase</span></div>
+</section>
+</main>
+<script>
+const AC=window.AudioContext||window.webkitAudioContext;let ctx,masterGain,tracks=[],selected=0,playing=false,startTime=0,raf;
+const instruments={
+ Piano:{wave:"piano",gain:.42,attack:.005,release:.8},
+ Guitar:{wave:"guitar",gain:.34,attack:.008,release:.55},
+ "Electric Guitar":{wave:"electric",gain:.32,attack:.008,release:.65},
+ Bass:{wave:"bass",gain:.5,attack:.01,release:.55},
+ Violin:{wave:"violin",gain:.3,attack:.12,release:.7},
+ Cello:{wave:"cello",gain:.34,attack:.09,release:.8},
+ Flute:{wave:"flute",gain:.28,attack:.08,release:.45},
+ Trumpet:{wave:"trumpet",gain:.28,attack:.025,release:.3},
+ Synth:{wave:"synth",gain:.25,attack:.015,release:.25},
+ Organ:{wave:"organ",gain:.22,attack:.02,release:.35},
+ "Music Box":{wave:"musicbox",gain:.28,attack:.002,release:.65},
+ "Warm Pad":{wave:"pad",gain:.2,attack:.25,release:1.2}
+};
+const noteNames=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+const flatNames=["C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"];
+const pitches=[];for(let o=6;o>=3;o--)for(let i=11;i>=0;i--)pitches.push({name:noteNames[i]+o,pc:i,oct:o,black:[1,3,6,8,10].includes(i)});
+const totalCols=48,colW=28,rowH=28;
+const lengths={whole:48,half:24,quarter:12,eighth:6,sixteenth:3,thirtysecond:1.5};
+let selectedLen="quarter",acc="natural";
+function initAudio(){if(!ctx){ctx=new AC();masterGain=ctx.createGain();masterGain.gain.value=+master.value;masterGain.connect(ctx.destination)}if(ctx.state==="suspended")ctx.resume()}
+function makeTrack(name){return {name,volume:1,notes:[]}}
+tracks=[makeTrack("Piano")];renderTracks();
+instrument.innerHTML=Object.keys(instruments).map(x=>`<option>${x}</option>`).join("");
+["whole","half","quarter","eighth","sixteenth","thirtysecond"].forEach(x=>{let b=document.createElement("button");b.className="btn"+(x===selectedLen?" selected":"");b.textContent={whole:"𝅝 Whole",half:"𝅗𝅥 Half",quarter:"♩ Quarter",eighth:"♪ Eighth",sixteenth:"♬ 16th",thirtysecond:"𝅘𝅥𝅮 32nd"}[x];b.onclick=()=>{selectedLen=x;document.querySelectorAll("#lengths button").forEach(z=>z.classList.remove("selected"));b.classList.add("selected");updateStatus()};lengthsDiv().appendChild(b)});
+function lengthsDiv(){return document.getElementById("lengths")}
+["natural","sharp","flat","normal"].forEach(x=>{let b=document.createElement("button");b.className="btn"+(x==="natural"?" selected":"");b.textContent={natural:"♮ Natural",sharp:"♯ Sharp",flat:"♭ Flat",normal:"♪ Normal"}[x];b.onclick=()=>{acc=x;document.querySelectorAll("#acc button").forEach(z=>z.classList.remove("selected"));b.classList.add("selected");updateStatus()};document.getElementById("acc").appendChild(b)});
+function updateStatus(){status.textContent=`${tracks[selected]?.name||""} • ${selectedLen} • ${acc}`}
+function renderTracks(){tracksEl.innerHTML="";tracks.forEach((t,i)=>{let d=document.createElement("div");d.className="track"+(i===selected?" active":"");d.innerHTML=`<span class="dot"></span><span>${t.name}</span><button class="btn">×</button>`;d.onclick=e=>{if(e.target.tagName==="BUTTON"){if(tracks.length>1){tracks.splice(i,1);selected=Math.min(selected,tracks.length-1);renderTracks();drawNotes()}return}selected=i;renderTracks();updateStatus()};tracksEl.appendChild(d)});updateStatus()}
+function makeGrid(){keys.innerHTML="";grid.querySelectorAll(".row").forEach(x=>x.remove());pitches.forEach((p,ri)=>{let k=document.createElement("div");k.className="key "+(p.black?"black":"white");k.textContent=p.name;k.dataset.pc=p.pc;keys.appendChild(k);let r=document.createElement("div");r.className="row "+(p.black?"black":"white");r.dataset.row=ri;for(let c=0;c<totalCols;c++){let line=document.createElement("span");line.className=(c%12===0?"measure":"beat");line.style.left=(c*colW)+"px";line.style.width="1px";r.appendChild(line)}r.onclick=e=>{if(e.target!==r)return;let rect=r.getBoundingClientRect(),col=Math.floor((e.clientX-rect.left)/colW);addNote(ri,col)};grid.insertBefore(r,playhead)})}
+function addNote(ri,col){initAudio();let p=pitches[ri],duration=lengths[selectedLen];let t=tracks[selected];let existing=t.notes.findIndex(n=>n.row===ri&&n.col===col);if(existing>=0){t.notes.splice(existing,1)}else{t.notes.push({row:ri,col,dur:duration,pc:p.pc,oct:p.oct,acc});playOne(p,duration/12*60/(+bpm.value),t.name)}drawNotes()}
+function drawNotes(){grid.querySelectorAll(".note").forEach(n=>n.remove());tracks[selected]?.notes.forEach(n=>{let d=document.createElement("div");d.className="note";d.style.left=n.col*colW+2+"px";d.style.top=n.row*rowH+2+"px";d.style.width=Math.max(5,n.dur*colW-4)+"px";d.title=pitches[n.row].name+" • "+n.acc;d.onclick=e=>{e.stopPropagation();let i=tracks[selected].notes.indexOf(n);tracks[selected].notes.splice(i,1);drawNotes()};grid.appendChild(d)})}
+function freq(n){return 440*Math.pow(2,(n-69)/12)}
+function midiFrom(p){return 12*(p.oct+1)+p.pc}
+function oscTone(f,type,time,dur,gain){let o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f;o.type=type;o.connect(g);g.connect(masterGain);let end=time+dur;g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(Math.max(.0001,gain),time+.02);g.gain.exponentialRampToValueAtTime(Math.max(.0001,gain*.45),time+Math.max(.04,dur*.55));g.gain.exponentialRampToValueAtTime(.0001,end);o.start(time);o.stop(end+.03)}
+function playOne(p,dur,inst){let t=ctx.currentTime+.01;renderInstrument(p,inst,t,dur)}
+function renderInstrument(p,inst,time,dur){let f=freq(midiFrom(p)),cfg=instruments[inst]||instruments.Piano;
+if(cfg.wave==="piano"||cfg.wave==="musicbox"){oscTone(f,"triangle",time,dur,cfg.gain);oscTone(f*2,"sine",time+.002,dur*.7,cfg.gain*.35);oscTone(f*3,"sine",time+.004,dur*.35,cfg.gain*.12)}
+else if(cfg.wave==="guitar"){oscTone(f,"triangle",time,dur,cfg.gain);oscTone(f*2,"sine",time,dur*.7,cfg.gain*.15)}
+else if(cfg.wave==="electric"){oscTone(f,"sawtooth",time,dur,cfg.gain*.7);oscTone(f*2,"square",time,dur*.55,cfg.gain*.12)}
+else if(cfg.wave==="bass"){oscTone(f,"sawtooth",time,dur,cfg.gain*.65);oscTone(f/2,"sine",time,dur*.8,cfg.gain*.45)}
+else if(cfg.wave==="violin"||cfg.wave==="cello"){oscTone(f,"sawtooth",time,dur,cfg.gain*.45);oscTone(f*2,"triangle",time,dur,cfg.gain*.15)}
+else if(cfg.wave==="flute"){oscTone(f,"sine",time,dur,cfg.gain);oscTone(f*2,"sine",time,dur,cfg.gain*.08)}
+else if(cfg.wave==="trumpet"){oscTone(f,"sawtooth",time,dur,cfg.gain*.35);oscTone(f*2,"square",time,dur,cfg.gain*.13)}
+else if(cfg.wave==="synth"){oscTone(f,"square",time,dur,cfg.gain*.3);oscTone(f*1.01,"sawtooth",time,dur,cfg.gain*.18)}
+else if(cfg.wave==="organ"){[1,2,3,4].forEach((h,i)=>oscTone(f*h,"sine",time,dur,cfg.gain/(i+1)*.35))}
+else if(cfg.wave==="pad"){oscTone(f,"sine",time,dur,cfg.gain);oscTone(f*1.005,"triangle",time,dur,cfg.gain*.5)}
+}
+function playSong(){initAudio();if(playing)return;playing=true;play.textContent="⏸ Playing";let beat=60/+bpm.value,start=ctx.currentTime+.05;startTime=performance.now();tracks.forEach(t=>t.notes.forEach(n=>{let p=pitches[n.row],time=start+n.col*(beat/12),dur=n.dur*(beat/12);renderInstrument(p,t.name,time,dur*t.volume)}));animate(start,beat)}
+function animate(start,beat){if(!playing)return;let elapsed=ctx.currentTime-start;let x=elapsed/(beat/12)*colW;playhead.style.left=Math.max(0,x)+"px";if(elapsed>48*(beat/12)){stopSong();return}raf=requestAnimationFrame(()=>animate(start,beat))}
+function stopSong(){playing=false;cancelAnimationFrame(raf);play.textContent="▶ Play";playhead.style.left="0"}
+play.onclick=()=>playing?stopSong():playSong();stop.onclick=stopSong;
+master.oninput=()=>{if(masterGain)masterGain.gain.value=+master.value}
+bpm.onchange=()=>{if(playing){stopSong();playSong()}}
+add.onclick=()=>{let name=instrument.value;tracks.push(makeTrack(name));selected=tracks.length-1;renderTracks();drawNotes()}
+save.onclick=()=>{localStorage.kaiSongMaker=JSON.stringify({bpm:bpm.value,tracks});alert("Song saved in this browser.")};
+load.onclick=()=>{try{let x=JSON.parse(localStorage.kaiSongMaker);tracks=x.tracks||tracks;bpm.value=x.bpm||120;selected=0;renderTracks();drawNotes()}catch(e){alert("No saved song found.")}};
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&e.target.tagName!=="INPUT"){e.preventDefault();playing?stopSong():playSong()}});
+makeGrid();drawNotes();
+</script>
+</body>
+</html>
