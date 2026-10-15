@@ -18,7 +18,8 @@
 .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);min-width:220px}
 .profile{display:flex;gap:8px;align-items:center}
-.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
 .small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;background:var(--cyan);color:#042;cursor:pointer}
 .panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
@@ -142,6 +143,7 @@ let state = {
   coins:250,
   name:'Guest',
   avatar:'G',
+  avatarPicture:null,
   created:[],
   purchases:[],
   videos:[],
@@ -150,7 +152,8 @@ let state = {
   google: null
 };
 try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(saved)state={...state,...saved}}catch(e){console.warn(e)}
-function persist(){try{localStorage.setItem('nexus-demo-state',JSON.stringify(state))}catch(e){}}
+function persist(){try{localStorage.setItem('nexus-demo-state',JSON.stringify(state))}catch(e){}
+}
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
 
 // --- Sign-in overlay control ---
@@ -158,7 +161,10 @@ function showOverlay(){ $('signinOverlay').style.display='flex'; $('appRoot').st
 function showMain(){ $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; updateWallet(); renderRooms(); renderChat(); }
 
 // --- Navigation ---
-function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page? (page==='home'?'block':'block') : 'none'));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));}
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.style.display = (p.id===page ? 'block' : 'none'));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+}
 document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page);});
 
 // --- Chat implementation ---
@@ -166,11 +172,14 @@ const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('nexus-chat') :
 function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
 ensureRoom(state.room);
 // load from storage
-try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = {...msgStore, ...state.messages}; }catch(e){console.warn(e)}
+try{
+  const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}');
+  if(msgStore && Object.keys(msgStore).length) state.messages = msgStore;
+}catch(e){console.warn(e)}
 function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
 function renderRooms(){const rooms=['general','games','creators','random'];$('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
 function renderChat(){ensureRoom(state.room);$('messages').innerHTML = state.messages[state.room].map(m=>`<div class="msg ${m.name===state.name?'mine':''}"><small style="opacity:0.75">${escapeHtml(m.name)} • ${new Date(m.ts).toLocaleTimeString()}</small><div>${escapeHtml(m.text)}</div></div>`).join('');$('messages').scrollTop=$('messages').scrollHeight;}
-function escapeHtml(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function escapeHtml(s){return String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 document.getElementById('rooms').addEventListener('click',e=>{let r=e.target.closest('.room');if(r){state.room=r.dataset.room;renderRooms();renderChat();persist();}});
 document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();let text=$('chatInput').value.trim();if(!text) return;let m={id:'m'+Date.now(),name:state.name,text,ts:Date.now(),fromGoogle:!!state.google};state.messages[state.room]=state.messages[state.room]||[];state.messages[state.room].push(m);$('chatInput').value='';saveMessages();broadcastMessages();renderChat();persist();});
@@ -179,13 +188,17 @@ function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'me
 
 if(bc){bc.onmessage = (ev)=>{if(ev.data && ev.data.type==='messages-updated'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}}} else {window.addEventListener('storage', (e)=>{if(e.key==='nexus-chat-messages' || e.key==='nexus-chat-update'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}});}
 
-// init chat UI
-// renderRooms();renderChat(); -- moved to showMain after sign-in
+// init chat UI moved to showMain after sign-in
 
 // --- Profile & Wallet ---
-function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;$('avatarEl').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileAvatar').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileName').textContent = state.name;$('signedInStatus').textContent = state.google? 'Yes':'No';}
+function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;
+  // avatar: show picture if available, otherwise initial
+  if(state.avatarPicture){ $('avatarEl').innerHTML = `<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; $('profileAvatar').innerHTML = `<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; }
+  else { $('avatarEl').textContent = state.avatar||state.name.charAt(0).toUpperCase(); $('profileAvatar').textContent = state.avatar||state.name.charAt(0).toUpperCase(); }
+  $('profileName').textContent = state.name; $('signedInStatus').textContent = state.google? 'Yes':'No';
+}
 
-document.getElementById('saveProfile').addEventListener('click', ()=>{let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;state.avatar=n.charAt(0).toUpperCase();persist();updateWallet();renderChat();toast('Profile saved.');});
+document.getElementById('saveProfile').addEventListener('click', ()=>{let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;state.avatar=n.charAt(0).toUpperCase();state.avatarPicture=null;persist();updateWallet();renderChat();toast('Profile saved.');});
 $('nameInput').value = state.name;
 
 // --- Google Sign-In handling (client-side only) ---
@@ -199,8 +212,9 @@ function handleCredentialResponse(response){
     state.google = payload;
     // Use the Google account name as display name (first priority)
     if(payload.name){ state.name = payload.name; }
-    // Use picture if available for avatar (we'll store URL in avatarPicture)
-    if(payload.picture){ state.avatar = payload.picture; }
+    // Use picture if available for avatar
+    if(payload.picture){ state.avatarPicture = payload.picture; }
+    else { state.avatarPicture = null; }
     persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name);
     $('signOutBtn').style.display='inline-block';
     showMain();
@@ -208,7 +222,7 @@ function handleCredentialResponse(response){
 }
 
 // Local simple sign-in (fallback for testing)
-document.getElementById('localSignInBtn').addEventListener('click', ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.google = null; persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name); $('signOutBtn').style.display='inline-block'; showMain(); }});
+document.getElementById('localSignInBtn').addEventListener('click', ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; state.google = null; persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name); $('signOutBtn').style.display='inline-block'; showMain(); }});
 
 window.onload = function(){
   updateWallet();
@@ -229,12 +243,11 @@ window.onload = function(){
     }catch(e){console.warn('Google API not initialized', e)}
   } else {
     // If no real client ID, render a smaller local sign-in in the overlay (already present)
-    // For backwards compatibility also add a top-right local sign-in if needed
   }
 }
 
 $('signOutBtn').addEventListener('click', ()=>{
-  state.google = null; state.name = 'Guest'; state.avatar='G'; persist(); updateWallet(); renderChat(); $('signOutBtn').style.display='none'; toast('Signed out'); showOverlay();
+  state.google = null; state.name = 'Guest'; state.avatar='G'; state.avatarPicture=null; persist(); updateWallet(); renderChat(); $('signOutBtn').style.display='none'; toast('Signed out'); showOverlay();
 });
 
 // --- Small helpers / search ---
