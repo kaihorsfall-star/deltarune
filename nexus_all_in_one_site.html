@@ -8,39 +8,11 @@
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
 .app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 .sidebar{background:linear-gradient(180deg,var(--panel),var(--panel2));padding:28px;display:flex;flex-direction:column;gap:18px}
-.logo{font-weight:700;letter-spacing:1px}
-.logo span{color:var(--purple)}
+.logo{font-weight:700;letter-spacing:1px}.logo span{color:var(--purple)}
 .tagline{font-size:12px;color:var(--muted)}
-.nav{display:flex;flex-direction:column;gap:6px}
-.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}
-.nav button.active{background:rgba(255,255,255,0.04);color:var(--text)}
-.main{padding:18px}
-.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
-.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);min-width:220px}
-.profile{display:flex;gap:8px;align-items:center}
-.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;background:var(--cyan);color:#042;cursor:pointer}
-.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
-.card{background:linear-gradient(180deg,rgba(0,0,0,0.12),transparent);padding:12px;border-radius:10px;border:1px solid var(--line)}
-.chatlayout{display:flex;gap:12px}
-.rooms{width:180px}
-.rooms .room{padding:8px;border-radius:8px;cursor:pointer}
-.rooms .room.active{background:rgba(255,255,255,0.03)}
-.messages{flex:1;display:flex;flex-direction:column;height:420px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:8px;overflow:auto}
-.msg{padding:6px 8px;border-radius:8px;margin-bottom:8px;background:rgba(0,0,0,0.16);max-width:70%}
-.msg.mine{background:linear-gradient(90deg,rgba(51,153,255,0.12),rgba(75,0,130,0.08));align-self:flex-end}
-.msg .content img{max-width:320px;border-radius:8px;display:block}
-.msg .content iframe{width:320px;height:180px;border:0;border-radius:8px}
-.chatinput{display:flex;gap:8px;margin-top:8px;align-items:center}
-.chatinput input[type="text"]{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)}
-.chatinput input[type="file"]{display:none}
-.uploadBtn{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.04);cursor:pointer;border:1px solid var(--line)}
-.toast{position:fixed;right:18px;bottom:18px;background:#111827;padding:8px 12px;border-radius:8px;display:none;color:var(--text)}
-.note{font-size:13px;color:var(--muted)}
-.timeSmall{font-size:11px;color:var(--muted);margin-left:8px}
-.admin-badge{background:var(--pink);color:#111;padding:4px 8px;border-radius:8px;font-size:12px;margin-left:8px}
+.nav{display:flex;flex-direction:column;gap:6px}.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}.nav button.active{background:rgba(255,255,255,0.04);color:var(--text)}
+.main{padding:18px}.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);min-width:220px}.profile{display:flex;gap:8px;align-items:center}.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;background:var(--cyan);color:#042;cursor:pointer}.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}.card{background:linear-gradient(180deg,rgba(0,0,0,0.12),transparent);padding:12px;border-radius:10px;border:1px solid var(--line)}.chatlayout{display:flex;gap:12px}.rooms{width:180px}.rooms .room{padding:8px;border-radius:8px;cursor:pointer}.rooms .room.active{background:rgba(255,255,255,0.03)}.messages{flex:1;display:flex;flex-direction:column;height:420px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:8px;overflow:auto}.msg{padding:6px 8px;border-radius:8px;margin-bottom:8px;background:rgba(0,0,0,0.16);max-width:70%}.msg.mine{background:linear-gradient(90deg,rgba(51,153,255,0.12),rgba(75,0,130,0.08));align-self:flex-end}.msg .content img{max-width:320px;border-radius:8px;display:block}.msg .content iframe{width:320px;height:180px;border:0;border-radius:8px}.chatinput{display:flex;gap:8px;margin-top:8px;align-items:center}.chatinput input[type="text"]{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)}.chatinput input[type="file"]{display:none}.uploadBtn{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.04);cursor:pointer;border:1px solid var(--line)}.toast{position:fixed;right:18px;bottom:18px;background:#111827;padding:8px 12px;border-radius:8px;display:none;color:var(--text)}.note{font-size:13px;color:var(--muted)}.timeSmall{font-size:11px;color:var(--muted);margin-left:8px}.admin-badge{background:var(--pink);color:#111;padding:4px 8px;border-radius:8px;font-size:12px;margin-left:8px}
+#signinOverlay{position:fixed;inset:0;background:rgba(3,6,18,0.78);display:none;align-items:center;justify-content:center;z-index:999}#signinBox{background:linear-gradient(180deg,#0f1724,#081224);padding:28px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);width:420px;color:var(--text);text-align:center}#signinBox h2{margin:0 0 8px}#signinBox p{color:var(--muted);margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -51,16 +23,14 @@
     <div id="gSignIn"></div>
     <div style="margin-top:12px">— or —</div>
     <div style="margin-top:12px"><button class="small" id="localSignInBtn">Sign in locally</button></div>
+    <div style="margin-top:12px"><button class="small" id="continueWithoutLoginBtn">Continue without signing in</button></div>
     <div style="margin-top:14px" class="note">This is a static demo. For real authentication, add a Google OAuth Client ID in the page script.</div>
   </div>
 </div>
 
-<div class="app" id="appRoot" style="display:none">
+<div class="app" id="appRoot" style="display:grid">
 <aside class="sidebar">
- <div>
-  <div class="logo">NE<span>X</span>US</div>
-  <div class="tagline">YOUR WORLD, TOGETHER</div>
- </div>
+ <div><div class="logo">NE<span>X</span>US</div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
  <nav class="nav" id="nav">
   <button class="active" data-page="home"><span class="ico">⌂</span> Home</button>
   <button data-page="games">🎮 Games</button>
@@ -88,357 +58,80 @@
       <div id="topName">Guest</div>
     </div>
     <div id="topClock" class="note">--:--:--</div>
-    <!-- Sign out button -->
+    <button class="small" id="manualGoogleBtn" style="display:inline-block">Sign in</button>
     <button class="small" id="signOutBtn" style="display:none;margin-left:12px">Sign out</button>
   </div>
  </header>
- 
- <!-- Home -->
- <section class="page" id="home">
-  <div class="hero panel">
-    <h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1>
-    <p class="note">Discover community-made games, videos and ideas.</p>
-  </div>
- </section>
- 
- <!-- Games placeholder -->
- <section class="page" id="games" style="display:none;margin-top:12px">
-  <div class="panel"><h2>Arcade</h2><p class="note">Community games will appear here. (Placeholder)</p></div>
- </section>
- 
- <!-- Create placeholder -->
- <section class="page" id="create" style="display:none;margin-top:12px">
-  <div class="panel"><h2>Creator studio</h2><p class="note">Create tools and publishing UI will appear here. (Placeholder)</p></div>
- </section>
- 
- <!-- Chat -->
- <section class="page" id="chat" style="display:none;margin-top:12px">
-  <div class="sectionhead"><h2>Community lounge</h2><p class="note">Pick a room and say hello. Messages sync across your browser tabs and are stored locally. You can paste/send links, images, GIFs, and YouTube links.</p></div>
-  <div class="panel chatlayout">
-    <div class="rooms panel" id="rooms"></div>
-    <div style="flex:1;display:flex;flex-direction:column">
-      <div class="messages" id="messages" aria-live="polite"></div>
-      <form id="chatForm" class="chatinput">
-        <input id="chatInput" type="text" placeholder="Type a message…">
-        <label class="uploadBtn" title="Upload image/gif">
-          📎
-          <input id="chatFile" type="file" accept="image/*">
-        </label>
-        <button class="small">Send</button>
-      </form>
-    </div>
-  </div>
- </section>
- 
- <!-- Videos placeholder -->
- <section class="page" id="videos" style="display:none;margin-top:12px">
-  <div class="panel"><h2>Videos</h2><p class="note">Share and watch videos here. (Placeholder)</p></div>
- </section>
- 
- <!-- Shop placeholder -->
- <section class="page" id="shop" style="display:none;margin-top:12px">
-  <div class="panel"><h2>Creator marketplace</h2><p class="note">Shop content and creator packs. (Placeholder)</p></div>
- </section>
- 
- <!-- Rules page -->
- <section class="page" id="rules" style="display:none;margin-top:12px">
-  <div class="panel" id="rulesPanel"><h2>Community Rules</h2><div id="rulesList"></div></div>
- </section>
- 
- <!-- Profile -->
- <section class="page" id="profile" style="display:none;margin-top:12px">
-  <div class="panel" style="max-width:520px">
-    <h2>Your corner</h2>
-    <div style="display:flex;gap:8px;align-items:center">
-      <div class="avatar" id="profileAvatar">G</div>
-      <div>
-        <div id="profileName">Guest</div>
-        <div class="note">Signed in: <span id="signedInStatus">No</span></div>
-      </div>
-    </div>
-    <hr>
-    <div>
-      <label>Display name</label>
-      <input id="nameInput" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);margin-top:6px">
-      <div style="margin-top:8px"><button class="small" id="saveProfile">Save profile</button></div>
-      <div style="margin-top:12px">
-        <div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button in the overlay.</div>
-      </div>
-    </div>
-  </div>
- </section>
- 
- <!-- Admin page (hidden unless admin) -->
- <section class="page" id="admin" style="display:none;margin-top:12px">
-  <div class="panel" style="max-width:760px">
-    <h2>Admin Console <span id="adminBadge" class="admin-badge">Admin</span></h2>
-    <p class="note">Only visible to the administrator (kai.horsfall@cmfalcons.org). Use this console to manage bans and community rules.</p>
-    <hr>
-    <h3>Bans</h3>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-      <input id="banInput" placeholder="Email or display name to ban" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)">
-      <button class="small" id="banBtn">Ban</button>
-    </div>
-    <div id="bansList" class="note"></div>
-    <hr>
-    <h3>Rules (admin)</h3>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-      <input id="newRuleInput" placeholder="New rule text" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)">
-      <button class="small" id="addRuleBtn">Add rule</button>
-    </div>
-    <div id="adminRulesList" class="note"></div>
-  </div>
- </section>
- 
+
+ <section class="page active" id="home"><div class="hero panel"><h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1><p class="note">Discover community-made games, videos and ideas.</p></div></section>
+ <section class="page" id="games" style="display:none;margin-top:12px"><div class="panel"><h2>Arcade</h2><p class="note">Community games will appear here. (Placeholder)</p></div></section>
+ <section class="page" id="create" style="display:none;margin-top:12px"><div class="panel"><h2>Creator studio</h2><p class="note">Create tools and publishing UI will appear here. (Placeholder)</p></div></section>
+ <section class="page" id="chat" style="display:none;margin-top:12px"><div class="sectionhead"><h2>Community lounge</h2><p class="note">Pick a room and say hello. Messages sync across your browser tabs and are stored locally. You can paste/send links, images, GIFs, and YouTube links.</p></div><div class="panel chatlayout"><div class="rooms panel" id="rooms"></div><div style="flex:1;display:flex;flex-direction:column"><div class="messages" id="messages" aria-live="polite"></div><form id="chatForm" class="chatinput"><input id="chatInput" type="text" placeholder="Type a message…"><label class="uploadBtn" title="Upload image/gif">📎<input id="chatFile" type="file" accept="image/*"></label><button class="small">Send</button></form></div></div></section>
+ <section class="page" id="videos" style="display:none;margin-top:12px"><div class="panel"><h2>Videos</h2><p class="note">Share and watch videos here. (Placeholder)</p></div></section>
+ <section class="page" id="shop" style="display:none;margin-top:12px"><div class="panel"><h2>Creator marketplace</h2><p class="note">Shop content and creator packs. (Placeholder)</p></div></section>
+ <section class="page" id="rules" style="display:none;margin-top:12px"><div class="panel" id="rulesPanel"><h2>Community Rules</h2><div id="rulesList"></div></div></section>
+ <section class="page" id="profile" style="display:none;margin-top:12px"><div class="panel" style="max-width:520px"><h2>Your corner</h2><div style="display:flex;gap:8px;align-items:center"><div class="avatar" id="profileAvatar">G</div><div><div id="profileName">Guest</div><div class="note">Signed in: <span id="signedInStatus">No</span></div></div></div><hr><div><label>Display name</label><input id="nameInput" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);margin-top:6px"><div style="margin-top:8px"><button class="small" id="saveProfile">Save profile</button></div><div style="margin-top:12px"><div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button in the overlay.</div></div></div></div></section>
+ <section class="page" id="admin" style="display:none;margin-top:12px"><div class="panel" style="max-width:760px"><h2>Admin Console <span id="adminBadge" class="admin-badge">Admin</span></h2><p class="note">Only visible to the administrator (kai.horsfall@cmfalcons.org). Use this console to manage bans and community rules.</p><hr><h3>Bans</h3><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="banInput" placeholder="Email or display name to ban" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)"><button class="small" id="banBtn">Ban</button></div><div id="bansList" class="note"></div><hr><h3>Rules (admin)</h3><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="newRuleInput" placeholder="New rule text" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)"><button class="small" id="addRuleBtn">Add rule</button></div><div id="adminRulesList" class="note"></div></div></section>
  <div class="toast" id="toast"></div>
 </main></div>
 
-<!-- Google Identity Services script -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-// --- State & persistence ---
-const $ = id => document.getElementById(id);
-let state = {
-  coins:250,
-  name:'Guest',
-  avatar:'G',
-  avatarPicture:null,
-  created:[],
-  purchases:[],
-  videos:[],
-  messages: {}, // {room: [{id, name, text, ts, type?, data?}]}
-  room:'general',
-  google: null,
-  lastRenderedIndex: {}, // per-room index of messages appended to DOM
-  bans: [], // {id,type,value,reason,ts}
-  rules: []
-};
-// load saved state (excluding chat messages which are stored separately)
-try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(saved)state={...state,...saved}}catch(e){console.warn(e)}
-// load bans and rules if stored separately
-try{const savedBans=JSON.parse(localStorage.getItem('nexus-bans')||'null'); if(savedBans) state.bans = savedBans}catch(e){}
-try{const savedRules=JSON.parse(localStorage.getItem('nexus-rules')||'null'); if(savedRules) state.rules = savedRules}catch(e){}
-
-// default rules if empty
-if(!state.rules || !state.rules.length){ state.rules = [
-  'Be respectful to others.',
-  'No hate speech or harassment.',
-  'No sharing of private personal information.',
-  'No spamming or advertising by users without permission.',
-  'Follow the community guidelines and report abuses to admins.'
-]; }
-
-// Persist user state BUT do NOT include messages here to avoid accidental overwrites of the chat store
-function persist(){
-  try{
-    const clone = {...state};
-    clone.messages = undefined;
-    clone.lastRenderedIndex = undefined;
-    localStorage.setItem('nexus-demo-state',JSON.stringify(clone));
-    // also persist bans and rules separately
-    localStorage.setItem('nexus-bans', JSON.stringify(state.bans));
-    localStorage.setItem('nexus-rules', JSON.stringify(state.rules));
-  }catch(e){console.warn(e)}
-}
-
+const $=id=>document.getElementById(id);
+let state={coins:250,name:'Guest',avatar:'G',avatarPicture:null,created:[],purchases:[],videos:[],messages:{},room:'general',google:null,lastRenderedIndex:{},bans:[],rules:[]};
+try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null'); if(saved) state={...state,...saved};}catch(e){}
+try{const b=JSON.parse(localStorage.getItem('nexus-bans')||'null'); if(b) state.bans=b;}catch(e){}
+try{const r=JSON.parse(localStorage.getItem('nexus-rules')||'null'); if(r && r.length) state.rules=r;}catch(e){}
+if(!state.rules||!state.rules.length){state.rules=['Be respectful to others.','No hate speech or harassment.','No sharing of private personal information.','No spamming or advertising by users without permission.','Follow the community guidelines and report abuses to admins.'];}
+function persist(){try{const clone={...state};clone.messages=undefined;clone.lastRenderedIndex=undefined;localStorage.setItem('nexus-demo-state',JSON.stringify(clone));localStorage.setItem('nexus-bans',JSON.stringify(state.bans));localStorage.setItem('nexus-rules',JSON.stringify(state.rules));}catch(e){}}
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
-
-// --- Sign-in overlay control ---
 function showOverlay(){ $('signinOverlay').style.display='flex'; $('appRoot').style.display='none'; }
-function showMain(){ $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; updateWallet(); renderRooms(); renderChatIncremental(); go('home'); updateAdminVisibility(); renderRules(); }
-
-// --- Navigation ---
-function go(page){
-  document.querySelectorAll('.page').forEach(p=>p.style.display = (p.id===page ? 'block' : 'none'));
-  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
-}
-document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page);});
-
-// --- Chat implementation (incremental, supports images/gifs/links/youtube) ---
-const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('nexus-chat') : null;
-function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
-ensureRoom(state.room);
-// load from storage (chat messages are stored separately)
-try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore && Object.keys(msgStore).length) state.messages = msgStore;}catch(e){console.warn(e)}
-
+function showMain(){ $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; updateWallet(); renderRooms(); renderChatIncremental(); go('home'); renderRules(); updateAdminVisibility(); }
+function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none'));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));}
+function currentUserIdentifier(){if(state.google&&state.google.email)return{type:'email',value:state.google.email.toLowerCase()};return{type:'name',value:state.name.toLowerCase()};}
+function isCurrentUserBanned(){const id=currentUserIdentifier();return state.bans.some(b=>b.type===id.type && b.value.toLowerCase()===id.value.toLowerCase());}
+function isAdmin(){try{return !!(state.google && state.google.email && state.google.email.toLowerCase()==='kai.horsfall@cmfalcons.org');}catch(e){return false;}}
+function updateAdminVisibility(){const btn=$('navAdminBtn'); if(isAdmin()){btn.style.display='block';} else {btn.style.display='none';}}
+function renderRules(){const list=$('rulesList'); list.innerHTML=''; state.rules.forEach((r,idx)=>{const div=document.createElement('div'); div.style.marginBottom='8px'; div.innerHTML=`<b>${idx+1}.</b> ${escapeHtml(r)}`; list.appendChild(div);}); const adminList=$('adminRulesList'); if(adminList){adminList.innerHTML=''; state.rules.forEach((r,idx)=>{const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; const left=document.createElement('div'); left.textContent=(idx+1)+'. '+r; const rm=document.createElement('button'); rm.className='small'; rm.textContent='Remove'; rm.onclick=()=>{state.rules.splice(idx,1); persist(); renderRules(); toast('Rule removed');}; row.appendChild(left); row.appendChild(rm); adminList.appendChild(row); }); }}
+function renderBans(){const el=$('bansList'); el.innerHTML=''; if(!state.bans.length){el.textContent='No bans in place.';return;} state.bans.forEach((b,idx)=>{const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; const left=document.createElement('div'); left.textContent=`${b.type}: ${b.value}${b.reason?` — ${b.reason}`:''}`; const un=document.createElement('button'); un.className='small'; un.textContent='Unban'; un.onclick=()=>{state.bans.splice(idx,1); persist(); renderBans(); toast('Unbanned');}; row.appendChild(left); row.appendChild(un); el.appendChild(row);});}
+$('banBtn').addEventListener('click',()=>{const v=$('banInput').value.trim(); if(!v) return; const type=v.includes('@')?'email':'name'; state.bans.push({id:'b'+Date.now()+Math.random().toString(36).slice(2,6), type, value:v, reason:'Banned by admin', ts:Date.now()}); $('banInput').value=''; persist(); renderBans(); toast('User banned');});
+$('addRuleBtn').addEventListener('click',()=>{const v=$('newRuleInput').value.trim(); if(!v) return; state.rules.push(v); $('newRuleInput').value=''; persist(); renderRules(); toast('Rule added');});
+const bc=('BroadcastChannel' in window)?new BroadcastChannel('nexus-chat'):null;
+function ensureRoom(r){state.messages[r]=state.messages[r]||[];}
+ensureRoom(state.room); try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore&&Object.keys(msgStore).length) state.messages=msgStore;}catch(e){}
 function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
-
-// helpers to detect URL types
-const urlRegex = /(https?:\/\/[^\s]+)/g;
-function isImageUrl(url){ return /\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(url); }
-function isYouTubeUrl(url){ return /(youtube\.com\/watch\?v=|youtu\.be\/)/i.test(url); }
-function youTubeEmbed(url){ try{ let u=new URL(url); if(u.hostname.includes('youtu.be')) return 'https://www.youtube.com/embed/'+u.pathname.slice(1); if(u.hostname.includes('youtube.com')) return 'https://www.youtube.com/embed/'+(u.searchParams.get('v')||''); }catch(e){} return null }
-
-// Ban check: return true if current user is banned
-function currentUserIdentifier(){ if(state.google && state.google.email) return {type:'email', value: state.google.email.toLowerCase()}; return {type:'name', value: state.name}; }
-function isCurrentUserBanned(){ const id = currentUserIdentifier(); return state.bans.some(b=>b.type===id.type && b.value.toLowerCase()===id.value.toLowerCase()); }
-
-// append a single message element (fast) and keep DOM updates minimal
-function appendMessageToDOM(m){ ensureRoom(state.room); const container = $('messages');
-  const el = document.createElement('div'); el.className = 'msg '+(m.name===state.name?'mine':''); el.dataset.msgId = m.id; el.title = new Date(m.ts).toLocaleString();
-  const timeSpan = document.createElement('small'); timeSpan.style.opacity='0.75'; timeSpan.className='msg-time'; timeSpan.textContent = `${m.name} • ${timeAgoShort(m.ts)}`;
-  const content = document.createElement('div'); content.className='content';
-
-  if(m.type==='image' && m.data){ const img = document.createElement('img'); img.src = m.data; img.alt = m.name+' image'; content.appendChild(img); }
-  else if(m.type==='youtube' && m.data){ const ifr = document.createElement('iframe'); ifr.src = m.data; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr); }
-  else {
-    // text: parse urls and embed images/youtube inline
-    let text = m.text || '';
-    let parts = text.split(urlRegex);
-    parts.forEach(part => {
-      if(urlRegex.test(part)){
-        if(isImageUrl(part)){
-          const img = document.createElement('img'); img.src = part; img.alt = 'image'; content.appendChild(img);
-        } else if(isYouTubeUrl(part)){
-          const emb = youTubeEmbed(part);
-          if(emb){ const ifr = document.createElement('iframe'); ifr.src = emb; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr); }
-          else { const a = document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent = part; content.appendChild(a); }
-        } else {
-          const a = document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent = part; content.appendChild(a);
-        }
-      } else {
-        content.appendChild(document.createTextNode(part));
-      }
-    });
-  }
-
-  el.appendChild(timeSpan);
-  el.appendChild(content);
-  container.appendChild(el);
-  // keep container scrolled to bottom only when user is near bottom
-  const nearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 150;
-  if(nearBottom) container.scrollTop = container.scrollHeight;
-}
-
-// Incremental rendering: append only new messages for current room
-function renderChatIncremental(){ ensureRoom(state.room); const msgs = state.messages[state.room] || []; const last = state.lastRenderedIndex[state.room] || 0; for(let i=last;i<msgs.length;i++){ appendMessageToDOM(msgs[i]); } state.lastRenderedIndex[state.room] = msgs.length; }
-
-// time label helper
-function timeAgoShort(ts){ const diff = Math.floor((Date.now() - ts)/1000); if(diff < 5) return 'just now'; if(diff < 60) return diff + 's'; if(diff < 3600) return Math.floor(diff/60) + 'm'; if(diff < 86400) return Math.floor(diff/3600) + 'h'; return new Date(ts).toLocaleDateString(); }
-
-// when room switches, we must clear DOM and render from scratch (cheap relative to updates)
-function clearAndRenderRoom(r){ const container = $('messages'); container.innerHTML=''; state.lastRenderedIndex[r]=0; renderChatIncremental(); }
-
-// listen for room clicks
-document.getElementById('rooms').addEventListener('click',e=>{let r=e.target.closest('.room');if(r){ state.room=r.dataset.room; renderRooms(); clearAndRenderRoom(state.room); persist(); }});
-
-// send message (text or image) with ban check
-async function sendMessage({text, fileData}){
-  if(isCurrentUserBanned()){ toast('You are banned and cannot send messages.'); return; }
-  const m = { id: 'm'+Date.now()+Math.random().toString(36).slice(2,8), name: state.name, ts: Date.now() };
-  if(fileData){ m.type='image'; m.data=fileData; }
-  else if(text){ m.type='text'; m.text=text; }
-  state.messages[state.room]=state.messages[state.room]||[]; state.messages[state.room].push(m); saveMessages(); broadcastMessages();
-  // if message belongs to current room append immediately
-  if(!state.lastRenderedIndex[state.room]) state.lastRenderedIndex[state.room]=0; appendMessageToDOM(m); state.lastRenderedIndex[state.room] = state.messages[state.room].length;
-  persist();
-}
-
-// form handling: file input + text
-const fileInput = $('chatFile'); fileInput.addEventListener('change', async (e)=>{
-  const f = e.target.files && e.target.files[0]; if(!f) return; if(!f.type.startsWith('image/')){ toast('Only images are supported for uploads in this demo'); return; }
-  const reader = new FileReader(); reader.onload = ()=>{ sendMessage({fileData: reader.result}); fileInput.value=''; }; reader.readAsDataURL(f);
-});
-
-document.getElementById('chatForm').addEventListener('submit', async (e)=>{ e.preventDefault(); const txt = $('chatInput').value.trim(); if(!txt) return; // If message contains an image URL only, or youtube, handled by renderer
-  await sendMessage({text: txt}); $('chatInput').value=''; });
-
-function broadcastMessages(){try{ saveMessages(); if(bc) bc.postMessage({type:'messages-updated'}); else localStorage.setItem('nexus-chat-update', Date.now()); }catch(e){console.warn(e)} }
-
-if(bc){ bc.onmessage = (ev)=>{ if(ev.data && ev.data.type==='messages-updated'){ try{ const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; // append any new messages for current room
-      renderChatIncremental(); renderRooms(); }catch(e){console.warn(e)} } } } else { window.addEventListener('storage', (e)=>{ if(e.key==='nexus-chat-messages' || e.key==='nexus-chat-update'){ try{ const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChatIncremental(); renderRooms(); }catch(e){console.warn(e)} } }); }
-
-// keep message time labels fresh without full re-render: update only the small time text nodes every 30s
-setInterval(()=>{ document.querySelectorAll('#messages .msg').forEach(el=>{ const id = el.dataset.msgId; if(!id) return; // find message ts by id
-  const roomMsgs = state.messages[state.room] || [];
-  const m = roomMsgs.find(mm=>mm.id===id);
-  if(m){ const tsNode = el.querySelector('.msg-time'); if(tsNode) tsNode.textContent = `${m.name} • ${timeAgoShort(m.ts)}`; }
-}); },30000);
-
-// --- Rooms rendering ---
-function renderRooms(){const rooms=['general','games','creators','random'];$('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
-
-// --- Rules rendering ---
-function renderRules(){ const list = $('rulesList'); list.innerHTML = ''; state.rules.forEach((r,idx)=>{ const div = document.createElement('div'); div.style.marginBottom='8px'; div.innerHTML = `<b>${idx+1}.</b> ${escapeHtml(r)}`; list.appendChild(div); });
-  // admin rules list for editing
-  const adminList = $('adminRulesList'); if(adminList){ adminList.innerHTML=''; state.rules.forEach((r,idx)=>{ const row = document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; const left = document.createElement('div'); left.textContent = (idx+1)+'. '+r; const rm = document.createElement('button'); rm.className='small'; rm.textContent='Remove'; rm.onclick = ()=>{ if(confirm('Remove rule?')){ state.rules.splice(idx,1); persist(); renderRules(); toast('Rule removed'); } }; row.appendChild(left); row.appendChild(rm); adminList.appendChild(row); }); }
-}
-
-// --- Admin helpers ---
-function isAdmin(){ try{ return !!(state.google && state.google.email && state.google.email.toLowerCase()==='kai.horsfall@cmfalcons.org'); }catch(e){return false} }
-function updateAdminVisibility(){ const btn = $('navAdminBtn'); if(isAdmin()){ btn.style.display='block'; } else { btn.style.display='none'; } }
-
-// ban/unban UI
-function renderBans(){ const el = $('bansList'); el.innerHTML=''; if(!state.bans.length){ el.textContent='No bans in place.'; return; } state.bans.forEach((b,idx)=>{ const row = document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; row.innerHTML = `<div>${escapeHtml(b.type)}: ${escapeHtml(b.value)} — ${escapeHtml(b.reason||'')}</div>`; const un = document.createElement('button'); un.className='small'; un.textContent='Unban'; un.onclick = ()=>{ if(confirm('Unban '+b.value+'?')){ state.bans.splice(idx,1); persist(); renderBans(); toast('Unbanned'); } }; row.appendChild(un); el.appendChild(row); }); }
-
-$('banBtn').addEventListener('click', ()=>{ const v = $('banInput').value.trim(); if(!v) return; const type = v.includes('@') ? 'email' : 'name'; state.bans.push({ id: 'b'+Date.now()+Math.random().toString(36).slice(2,6), type, value: v, reason:'Banned by admin', ts: Date.now() }); $('banInput').value=''; persist(); renderBans(); toast('User banned'); });
-
-// admin add rule
-$('addRuleBtn').addEventListener('click', ()=>{ const v = $('newRuleInput').value.trim(); if(!v) return; state.rules.push(v); $('newRuleInput').value=''; persist(); renderRules(); toast('Rule added'); });
-
-// --- Profile & Wallet ---
-function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;
-  // avatar: show picture if available, otherwise initial
-  if(state.avatarPicture){ $('avatarEl').innerHTML = `<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; $('profileAvatar').innerHTML = `<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; }
-  else { $('avatarEl').textContent = state.avatar||state.name.charAt(0).toUpperCase(); $('profileAvatar').textContent = state.avatar||state.name.charAt(0).toUpperCase(); }
-  $('profileName').textContent = state.name; $('signedInStatus').textContent = state.google? 'Yes':'No';
-}
-
-document.getElementById('saveProfile').addEventListener('click', ()=>{let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;state.avatar=n.charAt(0).toUpperCase();state.avatarPicture=null;persist();updateWallet();renderChatIncremental();toast('Profile saved.');});
-$('nameInput').value = state.name;
-
-// --- Top clock ---
-function updateTopClock(){ const el = $('topClock'); if(!el) return; el.textContent = new Date().toLocaleTimeString(); }
+const urlRegex=/(https?:\/\/[^\s]+)/g;
+function isImageUrl(url){return /\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(url);} 
+function isYouTubeUrl(url){return /(youtube\.com\/watch\?v=|youtu\.be\/)/i.test(url);}
+function youTubeEmbed(url){try{let u=new URL(url); if(u.hostname.includes('youtu.be')) return 'https://www.youtube.com/embed/'+u.pathname.slice(1); if(u.hostname.includes('youtube.com')) return 'https://www.youtube.com/embed/'+(u.searchParams.get('v')||'');}catch(e){} return null;}
+function timeAgoShort(ts){let diff=Math.floor((Date.now()-ts)/1000); if(diff<5) return 'just now'; if(diff<60) return diff+'s'; if(diff<3600) return Math.floor(diff/60)+'m'; if(diff<86400) return Math.floor(diff/3600)+'h'; return new Date(ts).toLocaleDateString();}
+function escapeHtml(s){return String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.title=new Date(m.ts).toLocaleString(); const time=document.createElement('small'); time.className='msg-time'; time.style.opacity='0.75'; time.textContent=`${m.name} • ${timeAgoShort(m.ts)}`; const content=document.createElement('div'); content.className='content'; if(m.type==='image'&&m.data){const img=document.createElement('img'); img.src=m.data; img.alt=m.name+' image'; content.appendChild(img);} else if(m.type==='youtube'&&m.data){const ifr=document.createElement('iframe'); ifr.src=m.data; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr);} else {let text=m.text||''; let parts=text.split(urlRegex);parts.forEach(part=>{if(urlRegex.test(part)){if(isImageUrl(part)){const img=document.createElement('img'); img.src=part; img.alt='image'; content.appendChild(img);} else if(isYouTubeUrl(part)){const emb=youTubeEmbed(part); if(emb){const ifr=document.createElement('iframe'); ifr.src=emb; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr);} else {const a=document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent=part; content.appendChild(a);}} else {const a=document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent=part; content.appendChild(a);}} else {content.appendChild(document.createTextNode(part));}});} el.appendChild(time); el.appendChild(content); c.appendChild(el); const nearBottom = c.scrollHeight - c.scrollTop - c.clientHeight < 150; if(nearBottom) c.scrollTop = c.scrollHeight; }
+function renderChatIncremental(){ensureRoom(state.room); const msgs=state.messages[state.room]||[]; const last=state.lastRenderedIndex[state.room]||0; for(let i=last;i<msgs.length;i++){appendMessageToDOM(msgs[i]);} state.lastRenderedIndex[state.room]=msgs.length;}
+function clearAndRenderRoom(r){const c=$('messages'); c.innerHTML=''; state.lastRenderedIndex[r]=0; renderChatIncremental();}
+$('rooms').addEventListener('click',e=>{let r=e.target.closest('.room'); if(r){state.room=r.dataset.room; renderRooms(); clearAndRenderRoom(state.room); persist();}});
+async function sendMessage({text,fileData}){if(isCurrentUserBanned()){toast('You are banned and cannot send messages.'); return;} const m={id:'m'+Date.now()+Math.random().toString(36).slice(2,8),name:state.name,ts:Date.now()}; if(fileData){m.type='image';m.data=fileData;} else if(text){m.type='text';m.text=text;} state.messages[state.room]=state.messages[state.room]||[]; state.messages[state.room].push(m); saveMessages(); broadcastMessages(); if(!state.lastRenderedIndex[state.room]) state.lastRenderedIndex[state.room]=0; appendMessageToDOM(m); state.lastRenderedIndex[state.room]=state.messages[state.room].length; persist();}
+const fileInput=$('chatFile'); fileInput.addEventListener('change',async(e)=>{const f=e.target.files&&e.target.files[0]; if(!f) return; if(!f.type.startsWith('image/')){toast('Only images are supported for uploads in this demo'); return;} const reader=new FileReader(); reader.onload=()=>{sendMessage({fileData: reader.result}); fileInput.value='';}; reader.readAsDataURL(f);});
+$('chatForm').addEventListener('submit',async(e)=>{e.preventDefault(); const txt=$('chatInput').value.trim(); if(!txt) return; await sendMessage({text: txt}); $('chatInput').value='';});
+function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'messages-updated'}); else localStorage.setItem('nexus-chat-update', Date.now());}catch(e){}}
+if(bc){bc.onmessage=(ev)=>{if(ev.data&&ev.data.type==='messages-updated'){try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages=msgStore; renderChatIncremental(); renderRooms();}catch(e){}}};} else {window.addEventListener('storage',(e)=>{if(e.key==='nexus-chat-messages'||e.key==='nexus-chat-update'){try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages=msgStore; renderChatIncremental(); renderRooms();}catch(e){}}});}
+setInterval(()=>{document.querySelectorAll('#messages .msg').forEach(el=>{const id=el.dataset.msgId; const roomMsgs=state.messages[state.room]||[]; const m=roomMsgs.find(mm=>mm.id===id); if(m){const tsNode=el.querySelector('.msg-time'); if(tsNode) tsNode.textContent=`${m.name} • ${timeAgoShort(m.ts)}`;}});},30000);
+function renderRooms(){const rooms=['general','games','creators','random']; $('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
+function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins); $('topName').textContent=state.name; if(state.avatarPicture){$('avatarEl').innerHTML=`<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; $('profileAvatar').innerHTML=`<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`;} else {$('avatarEl').textContent=state.avatar||state.name.charAt(0).toUpperCase(); $('profileAvatar').textContent=state.avatar||state.name.charAt(0).toUpperCase();} $('profileName').textContent=state.name; $('signedInStatus').textContent=state.google?'Yes':'No';}
+$('saveProfile').addEventListener('click',()=>{let n=$('nameInput').value.trim(); if(!n){toast('Please enter a display name.'); return;} state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; persist(); updateWallet(); renderChatIncremental(); toast('Profile saved.');});
+$('nameInput').value=state.name;
+function updateTopClock(){const el=$('topClock'); if(el) el.textContent=new Date().toLocaleTimeString();}
 updateTopClock(); setInterval(updateTopClock,1000);
-
-// --- Google Sign-In handling (client-side only) ---
-// IMPORTANT: Replace CLIENT_ID with your OAuth 2.0 Client ID from Google Cloud Console.
-const GOOGLE_CLIENT_ID = 'REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com';
-
-function handleCredentialResponse(response){
-  try{
-    const payload = JSON.parse(atob(response.credential.split('.')[1]));
-    state.google = payload;
-    if(payload.name){ state.name = payload.name; }
-    if(payload.picture){ state.avatarPicture = payload.picture; }
-    else { state.avatarPicture = null; }
-    persist(); updateWallet(); toast('Signed in as '+state.name);
-    $('signOutBtn').style.display='inline-block';
-    showMain();
-    // render admin UI if admin
-    renderBans(); renderRules();
-  }catch(e){console.warn(e)}
-}
-
-// Local simple sign-in (fallback for testing)
-document.getElementById('localSignInBtn').addEventListener('click', ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; state.google = null; persist(); updateWallet(); renderChatIncremental(); toast('Signed in as '+state.name); $('signOutBtn').style.display='inline-block'; showMain(); }});
-
-window.onload = function(){
-  updateWallet();
-  // If user already has a stored Google payload, treat as signed in
-  if(state.google && state.google.name){ showMain(); $('signOutBtn').style.display='inline-block'; }
-  else { showOverlay(); }
-
-  if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){
-    try{
-      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback: handleCredentialResponse});
-      google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'large'});
-    }catch(e){console.warn('Google API not initialized', e)}
-  }
-}
-
-$('signOutBtn').addEventListener('click', ()=>{
-  state.google = null; state.name = 'Guest'; state.avatar='G'; state.avatarPicture=null; persist(); updateWallet(); // when signing out we keep messages
-  $('signOutBtn').style.display='none'; toast('Signed out'); showOverlay(); updateAdminVisibility();
-});
-
-// ensure rules and bans UI reflect current state on load
-renderRules(); renderBans(); updateAdminVisibility();
-
-// --- Small helpers / search ---
-$('globalSearch').addEventListener('input', e=>{let q=e.target.value.trim().toLowerCase();if(!q) return;go('chat');});
-
-// Expose a simple debugging helper
-window.nexusState = state;
+const GOOGLE_CLIENT_ID='REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com';
+function handleCredentialResponse(response){try{const payload=JSON.parse(atob(response.credential.split('.')[1])); state.google=payload; if(payload.name) state.name=payload.name; if(payload.picture) state.avatarPicture=payload.picture; else state.avatarPicture=null; persist(); updateWallet(); $('signOutBtn').style.display='inline-block'; showMain(); renderBans(); renderRules(); toast('Signed in as '+state.name);}catch(e){console.warn(e);}}
+$('localSignInBtn').addEventListener('click',()=>{const n=prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; state.google=null; persist(); updateWallet(); renderChatIncremental(); $('signOutBtn').style.display='inline-block'; showMain(); toast('Signed in as '+state.name);}});
+$('continueWithoutLoginBtn').addEventListener('click',()=>{showMain();});
+$('manualGoogleBtn').addEventListener('click',()=>{showOverlay(); if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){ try{google.accounts.id.prompt();}catch(e){}}});
+$('signOutBtn').addEventListener('click',()=>{state.google=null; state.name='Guest'; state.avatar='G'; state.avatarPicture=null; persist(); updateWallet(); $('signOutBtn').style.display='none'; toast('Signed out'); showMain(); updateAdminVisibility();});
+window.onload=function(){updateWallet(); renderRules(); renderBans(); updateAdminVisibility(); showMain(); if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){try{google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback: handleCredentialResponse}); google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'large'});}catch(e){console.warn('Google API not initialized', e)}};}
+$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]'); if(!b) return; const page=b.dataset.page; if((page==='chat'||page==='admin') && !state.google && !state.name){toast('Sign in to access this area.'); showOverlay(); return;} if(page==='admin' && !isAdmin()){toast('Admin access only.'); return;} go(page); if(page==='rules') renderRules(); if(page==='admin'){renderBans(); renderRules();}});
+$('globalSearch').addEventListener('input', e=>{ let q=e.target.value.trim().toLowerCase(); if(!q) return; go('chat'); });
+window.nexusState=state;
 </script>
-</body></html>
+</body>
+</html>
