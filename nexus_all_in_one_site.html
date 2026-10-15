@@ -34,10 +34,27 @@
 .chatinput input{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)}
 .toast{position:fixed;right:18px;bottom:18px;background:#111827;padding:8px 12px;border-radius:8px;display:none;color:var(--text)}
 .note{font-size:13px;color:var(--muted)}
+
+/* Sign-in overlay */
+#signinOverlay{position:fixed;inset:0;background:rgba(3,6,18,0.8);display:flex;align-items:center;justify-content:center;z-index:999}
+#signinBox{background:linear-gradient(180deg,#0f1724,#081224);padding:28px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);width:420px;color:var(--text);text-align:center}
+#signinBox h2{margin:0 0 8px}
+#signinBox p{color:var(--muted);margin-bottom:16px}
 </style>
 </head>
 <body>
-<div class="app">
+<div id="signinOverlay">
+  <div id="signinBox">
+    <h2>Welcome to Nexus</h2>
+    <p>Sign in to continue — your display name will be taken from your Google account.</p>
+    <div id="gSignIn"></div>
+    <div style="margin-top:12px">— or —</div>
+    <div style="margin-top:12px"><button class="small" id="localSignInBtn">Sign in locally</button></div>
+    <div style="margin-top:14px" class="note">This is a static demo. For real authentication, add a Google OAuth Client ID in the page script.</div>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none">
 <aside class="sidebar">
  <div>
   <div class="logo">NE<span>X</span>US</div>
@@ -65,9 +82,8 @@
   <div class="profile">
     <div class="avatar" id="avatarEl">K</div>
     <div id="topName">Guest</div>
-    <!-- Google Sign-in button target -->
-    <div id="gSignIn" style="margin-left:12px"></div>
-    <button class="small" id="signOutBtn" style="display:none">Sign out</button>
+    <!-- Sign out button -->
+    <button class="small" id="signOutBtn" style="display:none;margin-left:12px">Sign out</button>
   </div>
  </header>
  
@@ -108,7 +124,7 @@
       <input id="nameInput" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);margin-top:6px">
       <div style="margin-top:8px"><button class="small" id="saveProfile">Save profile</button></div>
       <div style="margin-top:12px">
-        <div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button added to the top-right.</div>
+        <div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button in the overlay.</div>
       </div>
     </div>
   </div>
@@ -137,6 +153,10 @@ try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(
 function persist(){try{localStorage.setItem('nexus-demo-state',JSON.stringify(state))}catch(e){}}
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
 
+// --- Sign-in overlay control ---
+function showOverlay(){ $('signinOverlay').style.display='flex'; $('appRoot').style.display='none'; }
+function showMain(){ $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; updateWallet(); renderRooms(); renderChat(); }
+
 // --- Navigation ---
 function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page? (page==='home'?'block':'block') : 'none'));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));}
 document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page);});
@@ -160,7 +180,7 @@ function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'me
 if(bc){bc.onmessage = (ev)=>{if(ev.data && ev.data.type==='messages-updated'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}}} else {window.addEventListener('storage', (e)=>{if(e.key==='nexus-chat-messages' || e.key==='nexus-chat-update'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}});}
 
 // init chat UI
-renderRooms();renderChat();
+// renderRooms();renderChat(); -- moved to showMain after sign-in
 
 // --- Profile & Wallet ---
 function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;$('avatarEl').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileAvatar').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileName').textContent = state.name;$('signedInStatus').textContent = state.google? 'Yes':'No';}
@@ -177,31 +197,44 @@ function handleCredentialResponse(response){
   try{
     const payload = JSON.parse(atob(response.credential.split('.')[1]));
     state.google = payload;
-    state.name = payload.name || state.name;
-    state.avatar = payload.picture ? '' : state.name.charAt(0).toUpperCase();
+    // Use the Google account name as display name (first priority)
+    if(payload.name){ state.name = payload.name; }
+    // Use picture if available for avatar (we'll store URL in avatarPicture)
+    if(payload.picture){ state.avatar = payload.picture; }
     persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name);
     $('signOutBtn').style.display='inline-block';
+    showMain();
   }catch(e){console.warn(e)}
 }
 
+// Local simple sign-in (fallback for testing)
+document.getElementById('localSignInBtn').addEventListener('click', ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.google = null; persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name); $('signOutBtn').style.display='inline-block'; showMain(); }});
+
 window.onload = function(){
   updateWallet();
+  // If user already has a stored Google payload, treat as signed in
+  if(state.google && state.google.name){ showMain(); $('signOutBtn').style.display='inline-block'; }
+  else {
+    // Show sign-in overlay
+    showOverlay();
+  }
+
   // Render Google button if CLIENT_ID is set
   if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){
     try{
       google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback: handleCredentialResponse});
-      google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'small'});
+      google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'large'});
       // optional: prompt one-tap
       // google.accounts.id.prompt();
     }catch(e){console.warn('Google API not initialized', e)}
   } else {
-    // Provide a local sign-in button for quick testing without Google setup
-    const b = document.createElement('button'); b.textContent='Local sign-in'; b.className='small'; b.onclick = ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name) }}; $('gSignIn').appendChild(b);
+    // If no real client ID, render a smaller local sign-in in the overlay (already present)
+    // For backwards compatibility also add a top-right local sign-in if needed
   }
 }
 
 $('signOutBtn').addEventListener('click', ()=>{
-  state.google = null; state.name = 'Guest'; state.avatar='G'; persist(); updateWallet(); renderChat(); $('signOutBtn').style.display='none'; toast('Signed out');
+  state.google = null; state.name = 'Guest'; state.avatar='G'; persist(); updateWallet(); renderChat(); $('signOutBtn').style.display='none'; toast('Signed out'); showOverlay();
 });
 
 // --- Small helpers / search ---
