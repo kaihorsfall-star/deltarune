@@ -5,86 +5,209 @@
 <title>NEXUS — Play. Create. Connect.</title>
 <style>
 :root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--line:#293653;--text:#edf2ff;--muted:#9aa8c7;--purple:#9b7bff;--cyan:#51d9df;--pink:#ff79b8;--gold:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#202d49;color:var(--text);padding:10px 14px;border-radius:12px;transition:.15s}button:hover{transform:translateY(-1px);border-color:var(--purple)}button.primary{background:linear-gradient(120deg,#8a67f5,#5d79f7);border:0;font-weight:700}button.small{padding:6px 10px;font-size:13px}input,textarea,select{background:#0d1528;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px;width:100%;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--cyan)}.app{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:24px 15px;background:#0c1324;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:22px}.logo{font-size:25px;font-weight:950;letter-spacing:2px}.logo span{color:var(--cyan)}.tagline{font-size:11px;letter-spacing:1.8px;color:var(--muted)}.nav{display:grid;gap:7px}.nav button{text-align:left;background:transparent;border-color:transparent;color:var(--muted);display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#1a2440;color:white;border-color:#2a3657}.nav .ico{width:23px;text-align:center;font-size:18px}.sidebottom{margin-top:auto}.coinbox{padding:15px;border:1px solid #574a82;border-radius:16px;background:linear-gradient(145deg,#29224a,#171b35)}.coinbox b{font-size:22px;color:var(--gold)}.main{min-width:0;padding:24px clamp(16px,3vw,42px) 50px}.topbar{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:28px}.search{max-width:430px}.profile{display:flex;align-items:center;gap:10px}.avatar{width:39px;height:39px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--purple));display:grid;place-items:center;color:#10162a;font-weight:900}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800}.hero{border:1px solid #35345d;border-radius:24px;padding:clamp(22px,4vw,42px);background:linear-gradient(110deg,rgba(102,78,197,.32),rgba(30,178,190,.08)),#131a30;position:relative;overflow:hidden;margin-bottom:30px}.hero:after{content:"✦";position:absolute;right:7%;top:10%;font-size:140px;color:#a895ff22}.hero h1{font-size:clamp(32px,4.5vw,56px);line-height:1.05;margin:10px 0 15px;max-width:700px;letter-spacing:-1.5px}.hero p{color:#bdc8e5;max-width:600px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:26px 0 14px}.sectionhead h2{margin:0;font-size:22px}.sectionhead p{margin:3px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;min-width:0}.art{height:145px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,#44347b,#1b6879)}.art.pink{background:linear-gradient(135deg,#7c326b,#2c346f)}.art.gold{background:linear-gradient(135deg,#78582b,#583c7c)}.art.green{background:linear-gradient(135deg,#1c6859,#283b72)}.cardbody{padding:15px}.card h3{margin:0 0 5px;font-size:16px}.muted{color:var(--muted)}.meta{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;margin:12px 0}.pill{display:inline-block;border:1px solid #384766;border-radius:100px;padding:3px 8px;font-size:11px;color:#cbd5f3}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.page{display:none}.page.active{display:block}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.two{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,.7fr);gap:16px}.chatlayout{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:500px;gap:14px}.roomlist{display:grid;align-content:start;gap:8px}.room{padding:12px;border-radius:12px;background:#0d1528;border:1px solid var(--line);cursor:pointer}.room.active{border-color:var(--cyan);background:#142a3a}.messages{height:390px;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:10px 0}.msg{background:#1a2540;padding:11px 13px;border-radius:13px;max-width:85%;align-self:flex-start}.msg.mine{align-self:flex-end;background:#443675}.msg small{display:block;color:#b3c0dc;margin-bottom:4px}.compose{display:flex;gap:8px}.compose input{flex:1}.notice{font-size:12px;color:var(--muted);margin-top:12px}.video{background:#050812;aspect-ratio:16/9;display:grid;place-items:center;border-radius:14px;font-size:48px;border:1px solid var(--line);overflow:hidden}.video iframe{width:100%;height:100%;border:0}.shopitem .art{height:105px}.price{color:var(--gold);font-weight:800}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{padding:15px;border-radius:15px;background:#0d1528;border:1px solid var(--line)}.stat b{font-size:24px;display:block}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;color:#c3cde4}.gameboard{background:#090e1d;border:1px solid var(--line);border-radius:15px;padding:15px;min-height:260px;display:grid;place-items:center;text-align:center}.gameboard canvas{max-width:100%;border-radius:10px;background:#111a30}.toast{position:fixed;right:20px;bottom:20px;padding:13px 18px;border-radius:13px;background:#243653;border:1px solid #536a93;box-shadow:0 10px 35px #0007;display:none;z-index:10}.empty{padding:35px;text-align:center;color:var(--muted)}.footer{margin-top:30px;color:#7181a3;font-size:12px}
-@media(max-width:950px){.app{grid-template-columns:78px minmax(0,1fr)}.sidebar{padding:18px 10px;align-items:center}.logo{font-size:18px}.tagline,.nav .label,.sidebottom .cointext,.sidebottom button{display:none}.nav button{justify-content:center;padding:12px}.coinbox{padding:10px}.coinbox b{font-size:15px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}}
-@media(max-width:600px){.app{display:block;padding-bottom:70px}.sidebar{position:fixed;z-index:5;top:auto;bottom:0;height:66px;width:100%;border-right:0;border-top:1px solid var(--line);padding:5px;display:block}.logo,.tagline,.sidebottom{display:none}.nav{display:flex;justify-content:space-around;gap:0}.nav button{display:grid;gap:0;padding:7px 8px;font-size:10px;text-align:center}.nav .ico{font-size:19px;width:auto}.nav .label{display:block}.main{padding:16px 13px 28px}.topbar{margin-bottom:18px}.search{max-width:100%}.profile .username{display:none}.grid{grid-template-columns:1fr 1fr;gap:9px}.art{height:105px;font-size:42px}.cardbody{padding:11px}.card h3{font-size:14px}.meta{display:block}.chatlayout{grid-template-columns:1fr}.roomlist{grid-template-columns:repeat(3,1fr)}.room{font-size:12px;padding:8px}.statrow{grid-template-columns:1fr}.hero h1{font-size:34px}}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{background:linear-gradient(180deg,var(--panel),var(--panel2));padding:28px;display:flex;flex-direction:column;gap:18px}
+.logo{font-weight:700;letter-spacing:1px}
+.logo span{color:var(--purple)}
+.tagline{font-size:12px;color:var(--muted)}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}
+.nav button.active{background:rgba(255,255,255,0.04);color:var(--text)}
+.main{padding:18px}
+.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);min-width:220px}
+.profile{display:flex;gap:8px;align-items:center}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center}
+.small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;background:var(--cyan);color:#042;cursor:pointer}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}
+.card{background:linear-gradient(180deg,rgba(0,0,0,0.12),transparent);padding:12px;border-radius:10px;border:1px solid var(--line)}
+.chatlayout{display:flex;gap:12px}
+.rooms{width:180px}
+.rooms .room{padding:8px;border-radius:8px;cursor:pointer}
+.rooms .room.active{background:rgba(255,255,255,0.03)}
+.messages{flex:1;display:flex;flex-direction:column;height:360px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:8px;overflow:auto}
+.msg{padding:6px 8px;border-radius:8px;margin-bottom:8px;background:rgba(0,0,0,0.16)}
+.msg.mine{background:linear-gradient(90deg,rgba(51,153,255,0.12),rgba(75,0,130,0.08));align-self:flex-end}
+.chatinput{display:flex;gap:8px;margin-top:8px}
+.chatinput input{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)}
+.toast{position:fixed;right:18px;bottom:18px;background:#111827;padding:8px 12px;border-radius:8px;display:none;color:var(--text)}
+.note{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
- <div><div class="logo">NE<span>X</span>US</div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
+ <div>
+  <div class="logo">NE<span>X</span>US</div>
+  <div class="tagline">YOUR WORLD, TOGETHER</div>
+ </div>
  <nav class="nav" id="nav">
-  <button class="active" data-page="home"><span class="ico">⌂</span><span class="label">Home</span></button>
-  <button data-page="games"><span class="ico">🎮</span><span class="label">Games</span></button>
-  <button data-page="create"><span class="ico">🛠️</span><span class="label">Create</span></button>
-  <button data-page="chat"><span class="ico">💬</span><span class="label">Chat</span></button>
-  <button data-page="videos"><span class="ico">▶</span><span class="label">Videos</span></button>
-  <button data-page="shop"><span class="ico">🛍️</span><span class="label">Coin Shop</span></button>
-  <button data-page="profile"><span class="ico">✦</span><span class="label">Profile</span></button>
+  <button class="active" data-page="home"><span class="ico">⌂</span> Home</button>
+  <button data-page="games">🎮 Games</button>
+  <button data-page="create">🛠️ Create</button>
+  <button data-page="chat">💬 Chat</button>
+  <button data-page="videos">▶ Videos</button>
+  <button data-page="shop">🛍️ Shop</button>
+  <button data-page="profile">✦ Profile</button>
  </nav>
- <div class="sidebottom"><div class="coinbox"><div class="cointext muted">YOUR WALLET</div><b>🪙 <span id="coins">250</span></b><div class="cointext muted" style="font-size:12px">Nexus Coins</div><button class="small" style="margin-top:12px;width:100%" onclick="go('shop')">Visit shop ↗</button></div></div>
+ <div style="margin-top:auto">
+  <div class="panel">
+    <div class="note">YOUR WALLET</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><b>🪙 <span id="coins">250</span></b><div class="note">Nexus Coins</div></div>
+  </div>
+ </div>
 </aside>
 <main class="main">
- <header class="topbar"><div style="flex:1;max-width:440px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div><div class="profile"><div class="avatar" id="avatar">K</div><div class="username"><b id="topName">KaiPlayer</b><div class="muted" style="font-size:12px">Explorer level 3</div></div></div></header>
+ <header class="topbar">
+  <div style="flex:1;max-width:540px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div>
+  <div class="profile">
+    <div class="avatar" id="avatarEl">K</div>
+    <div id="topName">Guest</div>
+    <!-- Google Sign-in button target -->
+    <div id="gSignIn" style="margin-left:12px"></div>
+    <button class="small" id="signOutBtn" style="display:none">Sign out</button>
+  </div>
+ </header>
+ 
  <section class="page active" id="home">
-  <div class="hero"><div class="eyebrow">One place. Infinite possibilities.</div><h1>Play together.<br><span style="color:var(--cyan)">Make something legendary.</span></h1><p>Discover community-made games, build your own mini-games, hang out in chat, share videos, and spend your coins in the creator shop.</p><div class="actions"><button class="primary" onclick="go('games')">🎮 Explore games</button><button onclick="go('create')">＋ Make a game</button><button onclick="go('chat')">💬 Join the conversation</button></div></div>
-  <div class="statrow"><div class="stat"><span class="muted">Games to discover</span><b>🎮 <span id="gameCount">4</span></b></div><div class="stat"><span class="muted">Coins in wallet</span><b>🪙 <span id="coinStat">250</span></b></div><div class="stat"><span class="muted">Your creations</span><b>✨ <span id="createdCount">0</span></b></div></div>
-  <div class="sectionhead"><div><h2>Trending games</h2><p>Made by the Nexus community</p></div><button class="small" onclick="go('games')">View all →</button></div><div class="grid" id="homeGames"></div>
-  <div class="sectionhead"><div><h2>Fresh from creators</h2><p>Videos and ideas worth checking out</p></div><button class="small" onclick="go('videos')">Watch videos →</button></div><div class="grid" id="homeVideos"></div>
+  <div class="hero panel">
+    <h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1>
+    <p class="note">Discover community-made games, videos and ideas.</p>
+  </div>
  </section>
- <section class="page" id="games"><div class="sectionhead"><div><div class="eyebrow">Arcade</div><h2>Community games</h2><p>Play built-in mini-games or try creations from the community.</p></div><button class="primary" onclick="go('create')">＋ Create game</button></div><div class="grid" id="allGames"></div><div class="notice">Tip: use the Create page to publish your own playable mini-game to this demo.</div></section>
- <section class="page" id="create"><div class="eyebrow">Creator studio</div><h2>Build a game for the community</h2><p class="muted">Make a simple collectible game and publish it to the Nexus arcade. Your published game appears in this browser's saved community list.</p><div class="two"><div class="panel"><div class="field"><label>Game title</label><input id="gameTitle" maxlength="40" placeholder="e.g. Star Collector"></div><div class="field"><label>Short description</label><textarea id="gameDesc" rows="3" maxlength="180" placeholder="What makes your game fun?"></textarea></div><div class="field"><label>Game theme</label><select id="gameTheme"><option value="🌌">Space adventure 🌌</option><option value="🐸">Frog hop 🐸</option><option value="🧊">Ice world 🧊</option><option value="🐉">Dragon quest 🐉</option><option value="🍄">Mushroom forest 🍄</option><option value="🤖">Robot arena 🤖</option></select></div><div class="field"><label>Play style</label><select id="gameMode"><option value="clicker">Click to collect</option><option value="quiz">Quick trivia</option></select></div><button class="primary" onclick="publishGame()">🚀 Publish game</button></div><div class="panel"><h3>Creator checklist</h3><p>✨ Give your game a memorable title.</p><p>🧪 Test the preview before publishing.</p><p>🤝 Be kind and make something others can enjoy.</p><hr style="border-color:var(--line)"><div class="gameboard" id="preview"><div><div style="font-size:55px">🪄</div><b>Your game preview</b><p class="muted">Fill in a title, then preview or publish.</p><button onclick="previewGame()">Preview game</button></div></div><p class="notice">This starter studio creates simple built-in game templates; it does not execute arbitrary uploaded code.</p></div></div></section>
- <section class="page" id="chat"><div class="eyebrow">Community lounge</div><h2>Chat with the community</h2><p class="muted">Pick a room and say hello.</p><div class="panel chatlayout"><div class="roomlist" id="rooms"><div class="room active" data-room="general">🌐 General</div><div class="room" data-room="games">🎮 Game talk</div><div class="room" data-room="creators">🛠️ Creators</div></div><div><div class="row"><h3 id="roomTitle"># general</h3><span class="pill">Demo room</span></div><div class="messages" id="messages"></div><form class="compose" id="chatForm"><input id="chatInput" maxlength="300" placeholder="Write a message…" autocomplete="off"><button class="primary">Send</button></form><div class="notice">Demo mode: messages are stored in this browser only. Real-time chat between different people needs a server and user accounts.</div></div></div></section>
- <section class="page" id="videos"><div class="eyebrow">Watch & share</div><h2>Video corner</h2><p class="muted">Play sample videos or add a YouTube video using its URL or ID.</p><div class="two"><div class="panel"><div class="video" id="videoPlayer"><div>▶<div style="font-size:14px;color:#aab7d4">Choose a video below</div></div></div><h3 id="videoTitle" style="margin-bottom:4px">Welcome to Nexus</h3><p id="videoDesc" class="muted">A place for community highlights.</p><div class="field"><label>Add a YouTube video</label><input id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=…"></div><button class="primary" onclick="addVideo()">＋ Add video</button><p class="notice">Only embed videos you have permission to share. Some videos may block embedding.</p></div><div><div class="sectionhead" style="margin-top:0"><div><h2>Watch next</h2></div></div><div id="videoList" style="display:grid;gap:10px"></div></div></div></section>
- <section class="page" id="shop"><div class="eyebrow">Creator marketplace</div><h2>The Nexus shop</h2><p class="muted">Spend in-site coins on custom game packs and creator perks. No real money involved.</p><div class="panel" style="margin:16px 0"><div class="row"><div><span class="muted">Your balance</span><div style="font-size:28px;font-weight:900;color:var(--gold)">🪙 <span id="shopCoins">250</span></div></div><button onclick="claimCoins()">🎁 Claim daily demo coins (+50)</button></div><p class="notice">Demo wallet: coins are saved locally in this browser and have no cash value.</p></div><div class="grid" id="shopGrid"></div><div class="sectionhead"><div><h2>Your purchases</h2><p>Items you have unlocked</p></div></div><div class="panel" id="inventory">No items purchased yet.</div></section>
- <section class="page" id="profile"><div class="eyebrow">Your corner</div><h2>Player profile</h2><div class="panel" style="max-width:650px"><div class="row" style="justify-content:flex-start"><div class="avatar" style="width:65px;height:65px;font-size:24px" id="profileAvatar">K</div><div><h3 id="profileName" style="margin:0">KaiPlayer</h3><span class="pill">Explorer · Level 3</span></div></div><div class="field"><label>Display name</label><input id="nameInput" maxlength="24" value="KaiPlayer"></div><button class="primary" onclick="saveProfile()">Save profile</button><hr style="border-color:var(--line);margin:20px 0"><div class="row"><span>Coins earned/spent</span><b id="walletSummary">250 coins</b></div><div class="row" style="margin-top:12px"><span>Your published games</span><b id="profileGames">0</b></div><div class="notice">Your profile is local to this browser in this prototype.</div></div></section>
- <div class="footer">NEXUS • Community prototype • Be respectful, create freely, play together.</div>
-</main></div><div class="toast" id="toast"></div>
+ 
+ <section class="page" id="chat" style="display:none;margin-top:12px">
+  <div class="sectionhead"><h2>Community lounge</h2><p class="note">Pick a room and say hello. Messages sync across your browser tabs and are stored locally.</p></div>
+  <div class="panel chatlayout">
+    <div class="rooms panel" id="rooms"></div>
+    <div style="flex:1;display:flex;flex-direction:column">
+      <div class="messages" id="messages"></div>
+      <form id="chatForm" class="chatinput">
+        <input id="chatInput" placeholder="Type a message…">
+        <button class="small">Send</button>
+      </form>
+    </div>
+  </div>
+ </section>
+ 
+ <section class="page" id="profile" style="display:none;margin-top:12px">
+  <div class="panel" style="max-width:520px">
+    <h2>Your corner</h2>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="avatar" id="profileAvatar">G</div>
+      <div>
+        <div id="profileName">Guest</div>
+        <div class="note">Signed in: <span id="signedInStatus">No</span></div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <label>Display name</label>
+      <input id="nameInput" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);margin-top:6px">
+      <div style="margin-top:8px"><button class="small" id="saveProfile">Save profile</button></div>
+      <div style="margin-top:12px">
+        <div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button added to the top-right.</div>
+      </div>
+    </div>
+  </div>
+ </section>
+ 
+ <div class="toast" id="toast"></div>
+</main></div>
+
+<!-- Google Identity Services script -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-const $=id=>document.getElementById(id);
-const baseGames=[
-{id:'g1',title:'Cosmic Clicker',desc:'Tap to collect stardust and build your cosmic score.',emoji:'🌠',theme:'',author:'PixelNova',plays:1280,mode:'clicker',score:0},
-{id:'g2',title:'Frog Hop Challenge',desc:'A tiny arcade challenge with big frog energy.',emoji:'🐸',theme:'green',author:'MossByte',plays:964,mode:'clicker',score:0},
-{id:'g3',title:'Dungeon of Doodles',desc:'Explore a whimsical world full of surprises.',emoji:'🗝️',theme:'pink',author:'InkWizard',plays:742,mode:'clicker',score:0},
-{id:'g4',title:'Trivia Nebula',desc:'Quick questions for curious minds.',emoji:'🪐',theme:'gold',author:'OrbitOwl',plays:611,mode:'quiz',score:0}
-];
-const shopItems=[
-{id:'s1',name:'Pixel Hero Pack',desc:'A set of colorful hero looks for your games.',emoji:'🦸',price:90,kind:'Cosmetic pack'},
-{id:'s2',name:'Neon Arcade Kit',desc:'Glowing arcade-style effects and backgrounds.',emoji:'🌈',price:140,kind:'Game asset pack'},
-{id:'s3',name:'Dragon Boss Pack',desc:'A mighty dragon encounter theme for creators.',emoji:'🐲',price:180,kind:'Boss pack'},
-{id:'s4',name:'Creator Spotlight',desc:'A profile frame to celebrate your creations.',emoji:'✨',price:75,kind:'Profile perk'},
-{id:'s5',name:'Mystic Sound Kit',desc:'Fantasy sound ideas for your next mini-game.',emoji:'🎵',price:110,kind:'Audio pack'},
-{id:'s6',name:'Galaxy Worlds Pack',desc:'Space-themed art ideas and collectible icons.',emoji:'🌌',price:160,kind:'World pack'}
-];
-let state={coins:250,name:'KaiPlayer',created:[],purchases:[],videos:[{id:'v1',title:'Nexus Creator Showcase',desc:'Community creativity spotlight (sample card)',emoji:'🎬',url:''},{id:'v2',title:'Pixel Art Inspiration',desc:'Ideas for your next game world',emoji:'🎨',url:''},{id:'v3',title:'Arcade Highlights',desc:'Tiny games, big fun',emoji:'🕹️',url:''}],messages:{general:[{name:'NexusBot',text:'Welcome to Nexus! Be kind, share what you are making, and have fun ✨'}],games:[{name:'NexusBot',text:'What have you been playing lately?'}],creators:[{name:'NexusBot',text:'Show off your latest creation!'}]},room:'general',daily:false};
-try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(saved)state={...state,...saved}}catch(e){}
+// --- State & persistence ---
+const $ = id => document.getElementById(id);
+let state = {
+  coins:250,
+  name:'Guest',
+  avatar:'G',
+  created:[],
+  purchases:[],
+  videos:[],
+  messages: {}, // {room: [{id, name, text, ts, fromGoogle?}]}
+  room:'general',
+  google: null
+};
+try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(saved)state={...state,...saved}}catch(e){console.warn(e)}
 function persist(){try{localStorage.setItem('nexus-demo-state',JSON.stringify(state))}catch(e){}}
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
-function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='chat')renderChat();if(page==='shop')renderShop();if(page==='videos')renderVideos();if(page==='profile')renderProfile();window.scrollTo(0,0)}
-$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page)});
-function allGames(){return [...baseGames,...state.created]}
-function gameCard(g){return `<article class="card"><div class="art ${g.theme||''}">${g.emoji}</div><div class="cardbody"><div class="row"><h3>${esc(g.title)}</h3><span class="pill">${g.mode==='quiz'?'Trivia':'Arcade'}</span></div><p class="muted" style="font-size:13px;min-height:38px">${esc(g.desc)}</p><div class="meta"><span>by ${esc(g.author||state.name)}</span><span>▶ ${g.plays||0}</span></div><button class="primary" style="width:100%" onclick="playGame('${g.id}')">Play game</button></div></article>`}
-function renderGames(){let gs=allGames();$('homeGames').innerHTML=gs.slice(0,3).map(gameCard).join('');$('allGames').innerHTML=gs.map(gameCard).join('');$('gameCount').textContent=gs.length;$('createdCount').textContent=state.created.length;$('profileGames').textContent=state.created.length}
-function playGame(id){let g=allGames().find(x=>x.id===id);if(!g)return;g.plays=(g.plays||0)+1;let host=$('preview');go('create');$('gameTitle').value=g.title;$('gameDesc').value=g.desc;$('gameTheme').value=g.emoji;$('gameMode').value=g.mode;host.innerHTML=gameMarkup(g);renderGames();toast('Launching '+g.title+'!')}
-function gameMarkup(g){return `<div style="width:100%"><div style="font-size:40px">${g.emoji}</div><h3>${esc(g.title)}</h3><p class="muted">${esc(g.desc)}</p><div style="font-size:13px;margin:10px">Score: <b id="playScore">0</b></div><button class="primary" onclick="collectPoint('${g.id}')">${g.mode==='quiz'?'Answer for points':'Collect item ✨'}</button><p class="notice">Mini-game session</p></div>`}
-function collectPoint(id){let score=+(($('playScore')||{}).textContent||0)+1;if($('playScore'))$('playScore').textContent=score;if(score%5===0){state.coins+=5;persist();updateWallet();toast('+5 coins bonus!')}else toast('Nice! Score: '+score)}
-function previewGame(){let title=$('gameTitle').value.trim()||'Untitled Adventure',desc=$('gameDesc').value.trim()||'A new community game.',emoji=$('gameTheme').value,mode=$('gameMode').value;$('preview').innerHTML=gameMarkup({id:'preview',title,desc,emoji,mode});}
-function publishGame(){let title=$('gameTitle').value.trim();if(!title){toast('Give your game a title first.');$('gameTitle').focus();return}let g={id:'custom'+Date.now(),title,desc:$('gameDesc').value.trim()||'A new community creation.',emoji:$('gameTheme').value,theme:'',author:state.name,plays:0,mode:$('gameMode').value};state.created.unshift(g);persist();renderGames();updateWallet();previewGame();toast('Published! Your game is now in the arcade.');}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function updateWallet(){['coins','coinStat','shopCoins'].forEach(id=>$(id).textContent=state.coins);$('walletSummary').textContent=state.coins+' coins';$('topName').textContent=state.name;$('avatar').textContent=state.name.charAt(0).toUpperCase();$('profileAvatar').textContent=state.name.charAt(0).toUpperCase()}
-function renderShop(){$('shopGrid').innerHTML=shopItems.map(i=>`<article class="card shopitem"><div class="art ${i.id==='s3'?'pink':i.id==='s2'?'gold':''}">${i.emoji}</div><div class="cardbody"><span class="pill">${i.kind}</span><h3 style="margin-top:8px">${i.name}</h3><p class="muted" style="font-size:13px;min-height:40px">${i.desc}</p><div class="row"><span class="price">🪙 ${i.price}</span><button class="small primary" onclick="buy('${i.id}')">${state.purchases.includes(i.id)?'Owned':'Unlock'}</button></div></div></article>`).join('');$('inventory').innerHTML=state.purchases.length?state.purchases.map(id=>{let i=shopItems.find(x=>x.id===id);return `<span class="pill" style="margin:4px">${i.emoji} ${i.name}</span>`}).join(''):'No items purchased yet.'}
-function buy(id){let i=shopItems.find(x=>x.id===id);if(state.purchases.includes(id)){toast('You already own this item!');return}if(state.coins<i.price){toast('Not enough coins yet.');return}state.coins-=i.price;state.purchases.push(id);persist();updateWallet();renderShop();toast('Unlocked '+i.name+'!')}
-function claimCoins(){if(state.daily){toast('Daily demo coins already claimed.');return}state.daily=true;state.coins+=50;persist();updateWallet();renderShop();toast('You received 50 demo coins!')}
-function renderChat(){let arr=state.messages[state.room]||[];$('roomTitle').textContent='# '+state.room;$('messages').innerHTML=arr.map(m=>`<div class="msg ${m.name===state.name?'mine':''}"><small>${esc(m.name)}</small>${esc(m.text)}</div>`).join('');$('messages').scrollTop=$('messages').scrollHeight;document.querySelectorAll('.room').forEach(r=>r.classList.toggle('active',r.dataset.room===state.room))}
-$('rooms').addEventListener('click',e=>{let r=e.target.closest('.room');if(r){state.room=r.dataset.room;renderChat()}});
-$('chatForm').addEventListener('submit',e=>{e.preventDefault();let text=$('chatInput').value.trim();if(!text)return;state.messages[state.room]=state.messages[state.room]||[];state.messages[state.room].push({name:state.name,text});$('chatInput').value='';persist();renderChat()});
-function renderVideos(){$('videoList').innerHTML=state.videos.map(v=>`<div class="panel row" style="padding:10px;justify-content:flex-start;cursor:pointer" onclick="selectVideo('${v.id}')"><div style="font-size:30px;background:#202d49;border-radius:10px;padding:9px">${v.emoji||'▶'}</div><div><b>${esc(v.title)}</b><div class="muted" style="font-size:12px">${esc(v.desc||'Community video')}</div></div></div>`).join('');$('homeVideos').innerHTML=state.videos.slice(0,3).map(v=>`<article class="card"><div class="art ${v.id==='v2'?'pink':''}">${v.emoji||'▶'}</div><div class="cardbody"><h3>${esc(v.title)}</h3><p class="muted" style="font-size:13px">${esc(v.desc||'Community video')}</p><button class="small" onclick="go('videos');selectVideo('${v.id}')">Watch details</button></div></article>`).join('')}
-function selectVideo(id){let v=state.videos.find(x=>x.id===id);if(!v)return;$('videoTitle').textContent=v.title;$('videoDesc').textContent=v.desc||'';let p=$('videoPlayer');if(v.url){p.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.url)}" title="${esc(v.title)}" allowfullscreen></iframe>`}else p.innerHTML=`<div style="text-align:center">${v.emoji||'▶'}<div style="font-size:14px;color:#aab7d4">${esc(v.title)}</div><div style="font-size:12px;color:#7787aa">Sample community listing</div></div>`}
-function addVideo(){let raw=$('youtubeUrl').value.trim();let id='';try{let u=new URL(raw);if(u.hostname.includes('youtu.be'))id=u.pathname.slice(1);else if(u.hostname.includes('youtube.com'))id=u.searchParams.get('v')||u.pathname.split('/').filter(Boolean).pop()}catch(e){if(/^[\w-]{11}$/.test(raw))id=raw}if(!id||! /^[\w-]{6,20}$/.test(id)){toast('Enter a valid YouTube URL or video ID.');return}let v={id:'v'+Date.now(),title:'YouTube video '+id,desc:'Added by '+state.name,emoji:'📺',url:id};state.videos.unshift(v);persist();$('youtubeUrl').value='';renderVideos();selectVideo(v.id);toast('Video added to your list.')}
-function saveProfile(){let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;persist();updateWallet();renderGames();renderProfile();toast('Profile saved.')}
-function renderProfile(){$('nameInput').value=state.name;$('profileName').textContent=state.name;$('profileGames').textContent=state.created.length;$('walletSummary').textContent=state.coins+' coins'}
-$('globalSearch').addEventListener('input',e=>{let q=e.target.value.trim().toLowerCase();if(!q)return;go('games');let gs=allGames().filter(g=>(g.title+' '+g.desc+' '+g.author).toLowerCase().includes(q));$('allGames').innerHTML=gs.length?gs.map(gameCard).join(''):'<div class="empty">No games found. Try another search or create one!</div>'});
-renderGames();renderVideos();renderShop();renderChat();updateWallet();renderProfile();
+
+// --- Navigation ---
+function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page? (page==='home'?'block':'block') : 'none'));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));}
+document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page);});
+
+// --- Chat implementation ---
+const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('nexus-chat') : null;
+function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
+ensureRoom(state.room);
+// load from storage
+try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = {...msgStore, ...state.messages}; }catch(e){console.warn(e)}
+function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
+function renderRooms(){const rooms=['general','games','creators','random'];$('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
+function renderChat(){ensureRoom(state.room);$('messages').innerHTML = state.messages[state.room].map(m=>`<div class="msg ${m.name===state.name?'mine':''}"><small style="opacity:0.75">${escapeHtml(m.name)} • ${new Date(m.ts).toLocaleTimeString()}</small><div>${escapeHtml(m.text)}</div></div>`).join('');$('messages').scrollTop=$('messages').scrollHeight;}
+function escapeHtml(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+document.getElementById('rooms').addEventListener('click',e=>{let r=e.target.closest('.room');if(r){state.room=r.dataset.room;renderRooms();renderChat();persist();}});
+document.getElementById('chatForm').addEventListener('submit',e=>{e.preventDefault();let text=$('chatInput').value.trim();if(!text) return;let m={id:'m'+Date.now(),name:state.name,text,ts:Date.now(),fromGoogle:!!state.google};state.messages[state.room]=state.messages[state.room]||[];state.messages[state.room].push(m);$('chatInput').value='';saveMessages();broadcastMessages();renderChat();persist();});
+
+function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'messages-updated'}); else localStorage.setItem('nexus-chat-update', Date.now());}catch(e){console.warn(e)}}
+
+if(bc){bc.onmessage = (ev)=>{if(ev.data && ev.data.type==='messages-updated'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}}} else {window.addEventListener('storage', (e)=>{if(e.key==='nexus-chat-messages' || e.key==='nexus-chat-update'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}});}
+
+// init chat UI
+renderRooms();renderChat();
+
+// --- Profile & Wallet ---
+function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;$('avatarEl').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileAvatar').textContent = state.avatar||state.name.charAt(0).toUpperCase();$('profileName').textContent = state.name;$('signedInStatus').textContent = state.google? 'Yes':'No';}
+
+document.getElementById('saveProfile').addEventListener('click', ()=>{let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;state.avatar=n.charAt(0).toUpperCase();persist();updateWallet();renderChat();toast('Profile saved.');});
+$('nameInput').value = state.name;
+
+// --- Google Sign-In handling (client-side only) ---
+// IMPORTANT: Replace CLIENT_ID with your OAuth 2.0 Client ID from Google Cloud Console.
+const GOOGLE_CLIENT_ID = 'REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com';
+
+function handleCredentialResponse(response){
+  // response.credential is a JWT ID token: decode payload
+  try{
+    const payload = JSON.parse(atob(response.credential.split('.')[1]));
+    state.google = payload;
+    state.name = payload.name || state.name;
+    state.avatar = payload.picture ? '' : state.name.charAt(0).toUpperCase();
+    persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name);
+    $('signOutBtn').style.display='inline-block';
+  }catch(e){console.warn(e)}
+}
+
+window.onload = function(){
+  updateWallet();
+  // Render Google button if CLIENT_ID is set
+  if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){
+    try{
+      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback: handleCredentialResponse});
+      google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'small'});
+      // optional: prompt one-tap
+      // google.accounts.id.prompt();
+    }catch(e){console.warn('Google API not initialized', e)}
+  } else {
+    // Provide a local sign-in button for quick testing without Google setup
+    const b = document.createElement('button'); b.textContent='Local sign-in'; b.className='small'; b.onclick = ()=>{ let n = prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){ state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); renderChat(); toast('Signed in as '+state.name) }}; $('gSignIn').appendChild(b);
+  }
+}
+
+$('signOutBtn').addEventListener('click', ()=>{
+  state.google = null; state.name = 'Guest'; state.avatar='G'; persist(); updateWallet(); renderChat(); $('signOutBtn').style.display='none'; toast('Signed out');
+});
+
+// --- Small helpers / search ---
+$('globalSearch').addEventListener('input', e=>{let q=e.target.value.trim().toLowerCase();if(!q) return;go('chat');});
+
+// Expose a simple debugging helper
+window.nexusState = state;
 </script>
 </body></html>
