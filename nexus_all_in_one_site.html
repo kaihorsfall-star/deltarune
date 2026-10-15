@@ -80,9 +80,12 @@
 <main class="main">
  <header class="topbar">
   <div style="flex:1;max-width:540px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div>
-  <div class="profile">
-    <div class="avatar" id="avatarEl">K</div>
-    <div id="topName">Guest</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="profile">
+      <div class="avatar" id="avatarEl">K</div>
+      <div id="topName">Guest</div>
+    </div>
+    <div id="topClock" class="note">--:--:--</div>
     <!-- Sign out button -->
     <button class="small" id="signOutBtn" style="display:none;margin-left:12px">Sign out</button>
   </div>
@@ -152,8 +155,16 @@ let state = {
   google: null
 };
 try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null');if(saved)state={...state,...saved}}catch(e){console.warn(e)}
-function persist(){try{localStorage.setItem('nexus-demo-state',JSON.stringify(state))}catch(e){}
+
+// Persist user state BUT do NOT include messages here to avoid accidental overwrites of the chat store
+function persist(){
+  try{
+    const clone = {...state};
+    clone.messages = undefined;
+    localStorage.setItem('nexus-demo-state',JSON.stringify(clone));
+  }catch(e){console.warn(e)}
 }
+
 function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
 
 // --- Sign-in overlay control ---
@@ -171,14 +182,34 @@ document.getElementById('nav').addEventListener('click',e=>{let b=e.target.close
 const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('nexus-chat') : null;
 function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
 ensureRoom(state.room);
-// load from storage
+// load from storage (chat messages are stored separately)
 try{
   const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}');
   if(msgStore && Object.keys(msgStore).length) state.messages = msgStore;
 }catch(e){console.warn(e)}
 function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
+
+function timeAgo(ts){
+  const diff = Math.floor((Date.now() - ts)/1000);
+  if(diff < 5) return 'just now';
+  if(diff < 60) return diff + 's';
+  if(diff < 3600) return Math.floor(diff/60) + 'm';
+  if(diff < 86400) return Math.floor(diff/3600) + 'h';
+  return new Date(ts).toLocaleDateString();
+}
+
 function renderRooms(){const rooms=['general','games','creators','random'];$('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
-function renderChat(){ensureRoom(state.room);$('messages').innerHTML = state.messages[state.room].map(m=>`<div class="msg ${m.name===state.name?'mine':''}"><small style="opacity:0.75">${escapeHtml(m.name)} • ${new Date(m.ts).toLocaleTimeString()}</small><div>${escapeHtml(m.text)}</div></div>`).join('');$('messages').scrollTop=$('messages').scrollHeight;}
+
+function renderChat(){ensureRoom(state.room);
+  $('messages').innerHTML = state.messages[state.room].map(m=>{
+    const mine = m.name===state.name;
+    const time = timeAgo(m.ts);
+    const full = new Date(m.ts).toLocaleString();
+    return `<div class="msg ${mine?'mine':''}" title="${escapeHtml(full)}"><small style="opacity:0.75">${escapeHtml(m.name)} • ${escapeHtml(time)}</small><div>${escapeHtml(m.text)}</div></div>`
+  }).join('');
+  $('messages').scrollTop=$('messages').scrollHeight;
+}
+
 function escapeHtml(s){return String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 document.getElementById('rooms').addEventListener('click',e=>{let r=e.target.closest('.room');if(r){state.room=r.dataset.room;renderRooms();renderChat();persist();}});
@@ -188,7 +219,8 @@ function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'me
 
 if(bc){bc.onmessage = (ev)=>{if(ev.data && ev.data.type==='messages-updated'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}}} else {window.addEventListener('storage', (e)=>{if(e.key==='nexus-chat-messages' || e.key==='nexus-chat-update'){try{const msgStore = JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages = msgStore; renderChat(); renderRooms();}catch(e){}}});}
 
-// init chat UI moved to showMain after sign-in
+// Keep message time labels fresh (e.g., 'just now', '2m') — update every 30s
+setInterval(()=>{ if(document.getElementById('messages')) renderChat(); },30000);
 
 // --- Profile & Wallet ---
 function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('topName').textContent=state.name;
@@ -200,6 +232,10 @@ function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins);$('
 
 document.getElementById('saveProfile').addEventListener('click', ()=>{let n=$('nameInput').value.trim();if(!n){toast('Please enter a display name.');return}state.name=n;state.avatar=n.charAt(0).toUpperCase();state.avatarPicture=null;persist();updateWallet();renderChat();toast('Profile saved.');});
 $('nameInput').value = state.name;
+
+// --- Top clock ---
+function updateTopClock(){ const el = $('topClock'); if(!el) return; el.textContent = new Date().toLocaleTimeString(); }
+updateTopClock(); setInterval(updateTopClock,1000);
 
 // --- Google Sign-In handling (client-side only) ---
 // IMPORTANT: Replace CLIENT_ID with your OAuth 2.0 Client ID from Google Cloud Console.
