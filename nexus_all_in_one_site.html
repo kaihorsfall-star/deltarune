@@ -4,35 +4,44 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NEXUS — Play. Create. Connect.</title>
 <style>
-:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--line:#293653;--text:#edf2ff;--muted:#9aa8c7;--purple:#9b7bff;--cyan:#51d9df;--pink:#ff79b8;--gold:#ffd166}
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--line:#293653;--text:#edf2ff;--muted:#9aa8c7;--purple:#9b7bff;--cyan:#51d9df}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
 .app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 .sidebar{background:linear-gradient(180deg,var(--panel),var(--panel2));padding:28px;display:flex;flex-direction:column;gap:18px}
 .logo{font-weight:700;letter-spacing:1px}.logo span{color:var(--purple)}
 .tagline{font-size:12px;color:var(--muted)}
-.nav{display:flex;flex-direction:column;gap:6px}.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}.nav button.active{background:rgba(255,255,255,0.04);color:var(--text)}
-.main{padding:18px}.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);min-width:220px}.profile{display:flex;gap:8px;align-items:center}.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;background:var(--cyan);color:#042;cursor:pointer}.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px}.card{background:linear-gradient(180deg,rgba(0,0,0,0.12),transparent);padding:12px;border-radius:10px;border:1px solid var(--line)}.chatlayout{display:flex;gap:12px}.rooms{width:180px}.rooms .room{padding:8px;border-radius:8px;cursor:pointer}.rooms .room.active{background:rgba(255,255,255,0.03)}.messages{flex:1;display:flex;flex-direction:column;height:420px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:12px;border-radius:8px;overflow:auto}.msg{padding:6px 8px;border-radius:8px;margin-bottom:8px;background:rgba(0,0,0,0.16);max-width:70%}.msg.mine{background:linear-gradient(90deg,rgba(51,153,255,0.12),rgba(75,0,130,0.08));align-self:flex-end}.msg .content img{max-width:320px;border-radius:8px;display:block}.msg .content iframe{width:320px;height:180px;border:0;border-radius:8px}.chatinput{display:flex;gap:8px;margin-top:8px;align-items:center}.chatinput input[type="text"]{flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)}.chatinput input[type="file"]{display:none}.uploadBtn{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.04);cursor:pointer;border:1px solid var(--line)}.toast{position:fixed;right:18px;bottom:18px;background:#111827;padding:8px 12px;border-radius:8px;display:none;color:var(--text)}.note{font-size:13px;color:var(--muted)}.timeSmall{font-size:11px;color:var(--muted);margin-left:8px}.admin-badge{background:var(--pink);color:#111;padding:4px 8px;border-radius:8px;font-size:12px;margin-left:8px}
-#signinOverlay{position:fixed;inset:0;background:rgba(3,6,18,0.78);display:none;align-items:center;justify-content:center;z-index:999}#signinBox{background:linear-gradient(180deg,#0f1724,#081224);padding:28px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);width:420px;color:var(--text);text-align:center}#signinBox h2{margin:0 0 8px}#signinBox p{color:var(--muted);margin-bottom:16px}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}
+.nav button.active{background:linear-gradient(90deg,rgba(155,123,255,0.12),transparent);color:var(--text)}
+.panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+.main{padding:18px}
+.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);width:100%}
+.profile{display:flex;align-items:center;gap:8px}
+.avatar{width:36px;height:36px;border-radius:6px;background:linear-gradient(90deg,var(--purple),var(--cyan));display:flex;align-items:center;justify-content:center;font-weight:700}
+.small{background:transparent;border:1px solid var(--line);padding:6px 10px;border-radius:8px;color:var(--text);cursor:pointer}
+.hero{padding:24px}
+.rooms{margin-top:12px}
+.room{padding:6px 8px;border-radius:6px;color:var(--muted);cursor:pointer}
+.room.active{background:rgba(255,255,255,0.03);color:var(--text)}
+.msg{padding:8px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.02)}
+.msg.mine{background:linear-gradient(90deg,rgba(81,217,223,0.06),transparent)}
+.toast{position:fixed;right:18px;bottom:18px;background:#0f1724;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);display:none}
+.games-list{display:flex;flex-direction:column;gap:8px}
+.game-item{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+.videos-list{display:flex;flex-direction:column;gap:8px}
+.video-thumb{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(3,6,18,0.8);display:none;align-items:center;justify-content:center}
+.modal .content{background:var(--panel);padding:12px;border-radius:8px;max-width:900px;width:90%}
+.note{color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
-<div id="signinOverlay">
-  <div id="signinBox">
-    <h2>Welcome to Nexus</h2>
-    <p>Sign in to continue — your display name will be taken from your Google account.</p>
-    <div id="gSignIn"></div>
-    <div style="margin-top:12px">— or —</div>
-    <div style="margin-top:12px"><button class="small" id="localSignInBtn">Sign in locally</button></div>
-    <div style="margin-top:12px"><button class="small" id="continueWithoutLoginBtn">Continue without signing in</button></div>
-    <div style="margin-top:14px" class="note">This is a static demo. For real authentication, add a Google OAuth Client ID in the page script.</div>
-  </div>
-</div>
-
-<div class="app" id="appRoot" style="display:grid">
+<div class="app" id="appRoot">
 <aside class="sidebar">
  <div><div class="logo">NE<span>X</span>US</div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
  <nav class="nav" id="nav">
-  <button class="active" data-page="home"><span class="ico">⌂</span> Home</button>
+  <button class="active" data-page="home">⌂ Home</button>
   <button data-page="games">🎮 Games</button>
   <button data-page="create">🛠️ Create</button>
   <button data-page="chat">💬 Chat</button>
@@ -54,84 +63,132 @@
   <div style="flex:1;max-width:540px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div>
   <div style="display:flex;align-items:center;gap:12px">
     <div class="profile">
-      <div class="avatar" id="avatarEl">K</div>
+      <div class="avatar" id="avatarEl">G</div>
       <div id="topName">Guest</div>
     </div>
     <div id="topClock" class="note">--:--:--</div>
-    <button class="small" id="manualGoogleBtn" style="display:inline-block">Sign in</button>
-    <button class="small" id="signOutBtn" style="display:none;margin-left:12px">Sign out</button>
+    <button class="small" id="localSignInBtn">Sign in</button>
+    <button class="small" id="signOutBtn" style="display:none">Sign out</button>
   </div>
  </header>
 
- <section class="page active" id="home"><div class="hero panel"><h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1><p class="note">Discover community-made games, videos and ideas.</p></div></section>
- <section class="page" id="games" style="display:none;margin-top:12px"><div class="panel"><h2>Arcade</h2><p class="note">Community games will appear here. (Placeholder)</p></div></section>
- <section class="page" id="create" style="display:none;margin-top:12px"><div class="panel"><h2>Creator studio</h2><p class="note">Create tools and publishing UI will appear here. (Placeholder)</p></div></section>
- <section class="page" id="chat" style="display:none;margin-top:12px"><div class="sectionhead"><h2>Community lounge</h2><p class="note">Pick a room and say hello. Messages sync across your browser tabs and are stored locally. You can paste/send links, images, GIFs, and YouTube links.</p></div><div class="panel chatlayout"><div class="rooms panel" id="rooms"></div><div style="flex:1;display:flex;flex-direction:column"><div class="messages" id="messages" aria-live="polite"></div><form id="chatForm" class="chatinput"><input id="chatInput" type="text" placeholder="Type a message…"><label class="uploadBtn" title="Upload image/gif">📎<input id="chatFile" type="file" accept="image/*"></label><button class="small">Send</button></form></div></div></section>
- <section class="page" id="videos" style="display:none;margin-top:12px"><div class="panel"><h2>Videos</h2><p class="note">Share and watch videos here. (Placeholder)</p></div></section>
- <section class="page" id="shop" style="display:none;margin-top:12px"><div class="panel"><h2>Creator marketplace</h2><p class="note">Shop content and creator packs. (Placeholder)</p></div></section>
- <section class="page" id="rules" style="display:none;margin-top:12px"><div class="panel" id="rulesPanel"><h2>Community Rules</h2><div id="rulesList"></div></div></section>
- <section class="page" id="profile" style="display:none;margin-top:12px"><div class="panel" style="max-width:520px"><h2>Your corner</h2><div style="display:flex;gap:8px;align-items:center"><div class="avatar" id="profileAvatar">G</div><div><div id="profileName">Guest</div><div class="note">Signed in: <span id="signedInStatus">No</span></div></div></div><hr><div><label>Display name</label><input id="nameInput" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);margin-top:6px"><div style="margin-top:8px"><button class="small" id="saveProfile">Save profile</button></div><div style="margin-top:12px"><div class="note">To test Google Sign-In locally, you must create OAuth credentials and replace the CLIENT_ID in the script below. If you don't, use the local sign-in button in the overlay.</div></div></div></div></section>
- <section class="page" id="admin" style="display:none;margin-top:12px"><div class="panel" style="max-width:760px"><h2>Admin Console <span id="adminBadge" class="admin-badge">Admin</span></h2><p class="note">Only visible to the administrator (kai.horsfall@cmfalcons.org). Use this console to manage bans and community rules.</p><hr><h3>Bans</h3><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="banInput" placeholder="Email or display name to ban" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)"><button class="small" id="banBtn">Ban</button></div><div id="bansList" class="note"></div><hr><h3>Rules (admin)</h3><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="newRuleInput" placeholder="New rule text" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text)"><button class="small" id="addRuleBtn">Add rule</button></div><div id="adminRulesList" class="note"></div></div></section>
- <div class="toast" id="toast"></div>
-</main></div>
+ <section class="page active" id="home"><div class="hero panel"><h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1><p class="note">Discover community-made games, videos and creators. Use the navigation to explore.</p></div></section>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+ <section class="page" id="games" style="display:none;margin-top:12px"><div class="panel"><h2>Arcade</h2><p class="note">Click a game to play it in the modal.</p><div id="gamesList" class="games-list"></div></div></section>
+
+ <section class="page" id="create" style="display:none;margin-top:12px"><div class="panel"><h2>Creator studio</h2><p class="note">Create a new game or upload an asset (demo).</p>
+  <div style="margin-top:10px"><input id="newGameTitle" placeholder="New game title" style="width:60%"><button id="addGameBtn" class="small">Add Game</button></div>
+ </div></section>
+
+ <section class="page" id="chat" style="display:none;margin-top:12px"><div class="panel"><h2>Community lounge</h2>
+  <div style="display:flex;gap:12px">
+    <div style="width:180px"><div class="note">Rooms</div><div id="rooms" class="rooms"></div></div>
+    <div style="flex:1">
+      <div id="messages" style="min-height:200px"></div>
+      <form id="chatForm" style="display:flex;gap:8px;margin-top:8px"><input id="chatInput" placeholder="Say something…" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><input type="file" id="chatFile" style="display:none"><button class="small">Send</button></form>
+    </div>
+  </div>
+ </div></section>
+
+ <section class="page" id="videos" style="display:none;margin-top:12px"><div class="panel"><h2>Videos</h2>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="newVideoUrl" placeholder="YouTube URL" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="addVideoBtn" class="small">Add Video</button></div>
+  <div id="videosList" class="videos-list"></div>
+ </div></section>
+
+ <section class="page" id="shop" style="display:none;margin-top:12px"><div class="panel"><h2>Creator marketplace</h2><p class="note">Shop content and creator packs. (Demo items)</p>
+  <div id="shopList"></div>
+ </div></section>
+
+ <section class="page" id="rules" style="display:none;margin-top:12px"><div class="panel" id="rulesPanel"><h2>Community Rules</h2><div id="rulesList"></div></div></section>
+
+ <section class="page" id="profile" style="display:none;margin-top:12px"><div class="panel" style="max-width:520px"><h2>Your corner</h2>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="nameInput" placeholder="Display name" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="saveProfile" class="small">Save</button></div>
+  <div class="note">Avatar and profile demo. Changes are saved to localStorage.</div>
+ </div></section>
+
+ <section class="page" id="admin" style="display:none;margin-top:12px"><div class="panel" style="max-width:760px"><h2>Admin Console <span id="adminBadge" class="note">Admin</span></h2>
+  <div style="margin-top:8px"><div class="note">Manage rules and bans (demo only).</div>
+  <div style="margin-top:8px"><input id="banInput" placeholder="name or email to ban" style="padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="banBtn" class="small">Ban</button></div>
+  <div style="margin-top:8px"><div id="bansList"></div></div>
+  <div style="margin-top:8px"><input id="newRuleInput" placeholder="New rule text" style="padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="addRuleBtn" class="small">Add Rule</button></div>
+ </div></section>
+
+ <div class="toast" id="toast"></div>
+</main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="content" id="modalContent"></div>
+</div>
+
 <script>
-const $=id=>document.getElementById(id);
-let state={coins:250,name:'Guest',avatar:'G',avatarPicture:null,created:[],purchases:[],videos:[],messages:{},room:'general',google:null,lastRenderedIndex:{},bans:[],rules:[]};
-try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null'); if(saved) state={...state,...saved};}catch(e){}
-try{const b=JSON.parse(localStorage.getItem('nexus-bans')||'null'); if(b) state.bans=b;}catch(e){}
-try{const r=JSON.parse(localStorage.getItem('nexus-rules')||'null'); if(r && r.length) state.rules=r;}catch(e){}
-if(!state.rules||!state.rules.length){state.rules=['Be respectful to others.','No hate speech or harassment.','No sharing of private personal information.','No spamming or advertising by users without permission.','Follow the community guidelines and report abuses to admins.'];}
-function persist(){try{const clone={...state};clone.messages=undefined;clone.lastRenderedIndex=undefined;localStorage.setItem('nexus-demo-state',JSON.stringify(clone));localStorage.setItem('nexus-bans',JSON.stringify(state.bans));localStorage.setItem('nexus-rules',JSON.stringify(state.rules));}catch(e){}}
-function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$('toast').style.display='none',2500)}
-function showOverlay(){ $('signinOverlay').style.display='flex'; $('appRoot').style.display='none'; }
-function showMain(){ $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; updateWallet(); renderRooms(); renderChatIncremental(); go('home'); renderRules(); updateAdminVisibility(); }
-function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none'));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));}
-function currentUserIdentifier(){if(state.google&&state.google.email)return{type:'email',value:state.google.email.toLowerCase()};return{type:'name',value:state.name.toLowerCase()};}
-function isCurrentUserBanned(){const id=currentUserIdentifier();return state.bans.some(b=>b.type===id.type && b.value.toLowerCase()===id.value.toLowerCase());}
-function isAdmin(){try{return !!(state.google && state.google.email && state.google.email.toLowerCase()==='kai.horsfall@cmfalcons.org');}catch(e){return false;}}
-function updateAdminVisibility(){const btn=$('navAdminBtn'); if(isAdmin()){btn.style.display='block';} else {btn.style.display='none';}}
-function renderRules(){const list=$('rulesList'); list.innerHTML=''; state.rules.forEach((r,idx)=>{const div=document.createElement('div'); div.style.marginBottom='8px'; div.innerHTML=`<b>${idx+1}.</b> ${escapeHtml(r)}`; list.appendChild(div);}); const adminList=$('adminRulesList'); if(adminList){adminList.innerHTML=''; state.rules.forEach((r,idx)=>{const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; const left=document.createElement('div'); left.textContent=(idx+1)+'. '+r; const rm=document.createElement('button'); rm.className='small'; rm.textContent='Remove'; rm.onclick=()=>{state.rules.splice(idx,1); persist(); renderRules(); toast('Rule removed');}; row.appendChild(left); row.appendChild(rm); adminList.appendChild(row); }); }}
-function renderBans(){const el=$('bansList'); el.innerHTML=''; if(!state.bans.length){el.textContent='No bans in place.';return;} state.bans.forEach((b,idx)=>{const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginBottom='6px'; const left=document.createElement('div'); left.textContent=`${b.type}: ${b.value}${b.reason?` — ${b.reason}`:''}`; const un=document.createElement('button'); un.className='small'; un.textContent='Unban'; un.onclick=()=>{state.bans.splice(idx,1); persist(); renderBans(); toast('Unbanned');}; row.appendChild(left); row.appendChild(un); el.appendChild(row);});}
-$('banBtn').addEventListener('click',()=>{const v=$('banInput').value.trim(); if(!v) return; const type=v.includes('@')?'email':'name'; state.bans.push({id:'b'+Date.now()+Math.random().toString(36).slice(2,6), type, value:v, reason:'Banned by admin', ts:Date.now()}); $('banInput').value=''; persist(); renderBans(); toast('User banned');});
-$('addRuleBtn').addEventListener('click',()=>{const v=$('newRuleInput').value.trim(); if(!v) return; state.rules.push(v); $('newRuleInput').value=''; persist(); renderRules(); toast('Rule added');});
-const bc=('BroadcastChannel' in window)?new BroadcastChannel('nexus-chat'):null;
-function ensureRoom(r){state.messages[r]=state.messages[r]||[];}
-ensureRoom(state.room); try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore&&Object.keys(msgStore).length) state.messages=msgStore;}catch(e){}
+const $ = id => document.getElementById(id);
+let state = {coins:250, name:'Guest', avatar:'G', videos:[], games:[], messages:{}, room:'general', bans:[], rules:[]};
+try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null'); if(saved) state = {...state,...saved};}catch(e){}
+try{const msgs=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgs) state.messages = msgs;}catch(e){}
+try{const r=JSON.parse(localStorage.getItem('nexus-rules')||'null'); if(r) state.rules = r;}catch(e){}
+if(!state.rules||!state.rules.length) state.rules = ['Be respectful.','No hate or harassment.','No doxxing.','No spam.'];
+function persist(){try{const clone={...state};clone.messages=state.messages; localStorage.setItem('nexus-demo-state', JSON.stringify(clone)); localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages)); localStorage.setItem('nexus-rules', JSON.stringify(state.rules));}catch(e){}}
+function toast(s){$('toast').textContent=s; $('toast').style.display='block'; clearTimeout(window._toast); window._toast=setTimeout(()=>$('toast').style.display='none',2500)}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none')); document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.page===page));}
+function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar;}
+function isAdmin(){try{return (state.name && state.name.toLowerCase()==='kai horsfall');}catch(e){return false;}}
+function updateAdminVisibility(){const btn=$('navAdminBtn'); if(isAdmin()) btn.style.display='block'; else btn.style.display='none';}
+
+// Games
+function renderGames(){const el = $('gamesList'); el.innerHTML=''; if(!state.games.length){state.games = [ {id:'g1',title:'Space Runner',url:'https://example.com'}, {id:'g2',title:'Puzzle Blocks',url:'https://example.com'} ];}
+ state.games.forEach(g=>{const d=document.createElement('div'); d.className='game-item'; d.textContent=g.title; d.dataset.id=g.id; d.addEventListener('click', ()=>openGame(g)); el.appendChild(d); }); persist();}
+function openGame(g){const modal=$('modal'); const c=$('modalContent'); c.innerHTML = `<h3>${escapeHtml(g.title)}</h3><div class="note">Demo iframe or link below.</div><div style="margin-top:8px"><iframe src="about:blank" style="width:100%;height:480px;border:0;background:#000" title="${escapeHtml(g.title)}"></iframe><div style="margin-top:8px"><a class="small" href="${escapeHtml(g.url)}" target="_blank">Open in new tab</a></div></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`; modal.style.display='flex'; $('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+
+// Videos
+function isYouTubeUrl(url){try{const u=new URL(url); return u.hostname.includes('youtube.com')||u.hostname.includes('youtu.be');}catch(e){return false;}}
+function youTubeEmbed(url){try{const u=new URL(url); if(u.hostname.includes('youtu.be')) return 'https://www.youtube.com/embed/'+u.pathname.slice(1); if(u.hostname.includes('youtube.com')) return 'https://www.youtube.com/embed/'+(new URLSearchParams(u.search).get('v')); return ''; }catch(e){return '';}}
+function renderVideos(){const el=$('videosList'); el.innerHTML=''; state.videos.forEach(v=>{const d=document.createElement('div'); d.className='video-thumb'; d.innerHTML = `<div style="width:120px;height:68px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff">▶</div><div><div><b>${escapeHtml(v.title||v.url)}</b></div><div class="note">${escapeHtml(v.url)}</div></div>`; d.addEventListener('click', ()=>openVideo(v)); el.appendChild(d); });}
+function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const embed=youTubeEmbed(v.url); if(embed){c.innerHTML=`<div style="position:relative;padding-top:56.25%"><iframe src="${embed}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} else {c.innerHTML=`<div class="note">Cannot embed this URL.</div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} modal.style.display='flex'; $('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+
+// Chat
+function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
+ensureRoom(state.room);
 function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
-const urlRegex=/(https?:\/\/[^\s]+)/g;
-function isImageUrl(url){return /\.(jpe?g|png|gif|webp|avif)(\?|$)/i.test(url);} 
-function isYouTubeUrl(url){return /(youtube\.com\/watch\?v=|youtu\.be\/)/i.test(url);}
-function youTubeEmbed(url){try{let u=new URL(url); if(u.hostname.includes('youtu.be')) return 'https://www.youtube.com/embed/'+u.pathname.slice(1); if(u.hostname.includes('youtube.com')) return 'https://www.youtube.com/embed/'+(u.searchParams.get('v')||'');}catch(e){} return null;}
-function timeAgoShort(ts){let diff=Math.floor((Date.now()-ts)/1000); if(diff<5) return 'just now'; if(diff<60) return diff+'s'; if(diff<3600) return Math.floor(diff/60)+'m'; if(diff<86400) return Math.floor(diff/3600)+'h'; return new Date(ts).toLocaleDateString();}
-function escapeHtml(s){return String(s||'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.title=new Date(m.ts).toLocaleString(); const time=document.createElement('small'); time.className='msg-time'; time.style.opacity='0.75'; time.textContent=`${m.name} • ${timeAgoShort(m.ts)}`; const content=document.createElement('div'); content.className='content'; if(m.type==='image'&&m.data){const img=document.createElement('img'); img.src=m.data; img.alt=m.name+' image'; content.appendChild(img);} else if(m.type==='youtube'&&m.data){const ifr=document.createElement('iframe'); ifr.src=m.data; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr);} else {let text=m.text||''; let parts=text.split(urlRegex);parts.forEach(part=>{if(urlRegex.test(part)){if(isImageUrl(part)){const img=document.createElement('img'); img.src=part; img.alt='image'; content.appendChild(img);} else if(isYouTubeUrl(part)){const emb=youTubeEmbed(part); if(emb){const ifr=document.createElement('iframe'); ifr.src=emb; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; ifr.allowFullscreen=true; content.appendChild(ifr);} else {const a=document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent=part; content.appendChild(a);}} else {const a=document.createElement('a'); a.href=part; a.target='_blank'; a.rel='noopener'; a.textContent=part; content.appendChild(a);}} else {content.appendChild(document.createTextNode(part));}});} el.appendChild(time); el.appendChild(content); c.appendChild(el); const nearBottom = c.scrollHeight - c.scrollTop - c.clientHeight < 150; if(nearBottom) c.scrollTop = c.scrollHeight; }
-function renderChatIncremental(){ensureRoom(state.room); const msgs=state.messages[state.room]||[]; const last=state.lastRenderedIndex[state.room]||0; for(let i=last;i<msgs.length;i++){appendMessageToDOM(msgs[i]);} state.lastRenderedIndex[state.room]=msgs.length;}
-function clearAndRenderRoom(r){const c=$('messages'); c.innerHTML=''; state.lastRenderedIndex[r]=0; renderChatIncremental();}
-$('rooms').addEventListener('click',e=>{let r=e.target.closest('.room'); if(r){state.room=r.dataset.room; renderRooms(); clearAndRenderRoom(state.room); persist();}});
-async function sendMessage({text,fileData}){if(isCurrentUserBanned()){toast('You are banned and cannot send messages.'); return;} const m={id:'m'+Date.now()+Math.random().toString(36).slice(2,8),name:state.name,ts:Date.now()}; if(fileData){m.type='image';m.data=fileData;} else if(text){m.type='text';m.text=text;} state.messages[state.room]=state.messages[state.room]||[]; state.messages[state.room].push(m); saveMessages(); broadcastMessages(); if(!state.lastRenderedIndex[state.room]) state.lastRenderedIndex[state.room]=0; appendMessageToDOM(m); state.lastRenderedIndex[state.room]=state.messages[state.room].length; persist();}
-const fileInput=$('chatFile'); fileInput.addEventListener('change',async(e)=>{const f=e.target.files&&e.target.files[0]; if(!f) return; if(!f.type.startsWith('image/')){toast('Only images are supported for uploads in this demo'); return;} const reader=new FileReader(); reader.onload=()=>{sendMessage({fileData: reader.result}); fileInput.value='';}; reader.readAsDataURL(f);});
-$('chatForm').addEventListener('submit',async(e)=>{e.preventDefault(); const txt=$('chatInput').value.trim(); if(!txt) return; await sendMessage({text: txt}); $('chatInput').value='';});
-function broadcastMessages(){try{saveMessages(); if(bc) bc.postMessage({type:'messages-updated'}); else localStorage.setItem('nexus-chat-update', Date.now());}catch(e){}}
-if(bc){bc.onmessage=(ev)=>{if(ev.data&&ev.data.type==='messages-updated'){try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages=msgStore; renderChatIncremental(); renderRooms();}catch(e){}}};} else {window.addEventListener('storage',(e)=>{if(e.key==='nexus-chat-messages'||e.key==='nexus-chat-update'){try{const msgStore=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgStore) state.messages=msgStore; renderChatIncremental(); renderRooms();}catch(e){}}});}
-setInterval(()=>{document.querySelectorAll('#messages .msg').forEach(el=>{const id=el.dataset.msgId; const roomMsgs=state.messages[state.room]||[]; const m=roomMsgs.find(mm=>mm.id===id); if(m){const tsNode=el.querySelector('.msg-time'); if(tsNode) tsNode.textContent=`${m.name} • ${timeAgoShort(m.ts)}`;}});},30000);
-function renderRooms(){const rooms=['general','games','creators','random']; $('rooms').innerHTML=rooms.map(r=>`<div class="room ${r===state.room?'active':''}" data-room="${r}"># ${r}</div>`).join('');}
-function updateWallet(){['coins'].forEach(id=>$(id).textContent=state.coins); $('topName').textContent=state.name; if(state.avatarPicture){$('avatarEl').innerHTML=`<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`; $('profileAvatar').innerHTML=`<img src="${escapeHtml(state.avatarPicture)}" alt="avatar">`;} else {$('avatarEl').textContent=state.avatar||state.name.charAt(0).toUpperCase(); $('profileAvatar').textContent=state.avatar||state.name.charAt(0).toUpperCase();} $('profileName').textContent=state.name; $('signedInStatus').textContent=state.google?'Yes':'No';}
-$('saveProfile').addEventListener('click',()=>{let n=$('nameInput').value.trim(); if(!n){toast('Please enter a display name.'); return;} state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; persist(); updateWallet(); renderChatIncremental(); toast('Profile saved.');});
-$('nameInput').value=state.name;
-function updateTopClock(){const el=$('topClock'); if(el) el.textContent=new Date().toLocaleTimeString();}
-updateTopClock(); setInterval(updateTopClock,1000);
-const GOOGLE_CLIENT_ID='REPLACE_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com';
-function handleCredentialResponse(response){try{const payload=JSON.parse(atob(response.credential.split('.')[1])); state.google=payload; if(payload.name) state.name=payload.name; if(payload.picture) state.avatarPicture=payload.picture; else state.avatarPicture=null; persist(); updateWallet(); $('signOutBtn').style.display='inline-block'; showMain(); renderBans(); renderRules(); toast('Signed in as '+state.name);}catch(e){console.warn(e);}}
-$('localSignInBtn').addEventListener('click',()=>{const n=prompt('Enter display name for local sign-in', state.name||'Guest'); if(n){state.name=n; state.avatar=n.charAt(0).toUpperCase(); state.avatarPicture=null; state.google=null; persist(); updateWallet(); renderChatIncremental(); $('signOutBtn').style.display='inline-block'; showMain(); toast('Signed in as '+state.name);}});
-$('continueWithoutLoginBtn').addEventListener('click',()=>{showMain();});
-$('manualGoogleBtn').addEventListener('click',()=>{showOverlay(); if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){ try{google.accounts.id.prompt();}catch(e){}}});
-$('signOutBtn').addEventListener('click',()=>{state.google=null; state.name='Guest'; state.avatar='G'; state.avatarPicture=null; persist(); updateWallet(); $('signOutBtn').style.display='none'; toast('Signed out'); showMain(); updateAdminVisibility();});
-window.onload=function(){updateWallet(); renderRules(); renderBans(); updateAdminVisibility(); showMain(); if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){try{google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback: handleCredentialResponse}); google.accounts.id.renderButton(document.getElementById('gSignIn'), {theme:'outline', size:'large'});}catch(e){console.warn('Google API not initialized', e)}};}
-$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]'); if(!b) return; const page=b.dataset.page; if((page==='chat'||page==='admin') && !state.google && !state.name){toast('Sign in to access this area.'); showOverlay(); return;} if(page==='admin' && !isAdmin()){toast('Admin access only.'); return;} go(page); if(page==='rules') renderRules(); if(page==='admin'){renderBans(); renderRules();}});
-$('globalSearch').addEventListener('input', e=>{ let q=e.target.value.trim().toLowerCase(); if(!q) return; go('chat'); });
-window.nexusState=state;
+function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.innerHTML=`<b>${escapeHtml(m.name)}</b> <div class="note">${timeAgoShort(m.ts)}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`; c.appendChild(el); c.scrollTop = c.scrollHeight;}
+function timeAgoShort(ts){let diff=Math.floor((Date.now()-ts)/1000); if(diff<5) return 'just now'; if(diff<60) return diff+'s'; if(diff<3600) return Math.floor(diff/60)+'m'; if(diff<86400) return Math.floor(diff/3600)+'h'; return Math.floor(diff/86400)+'d';}
+function renderRooms(){const rooms=['general','games','creators','random']; $('rooms').innerHTML=''; rooms.forEach(r=>{const d=document.createElement('div'); d.className='room '+(r===state.room?'active':''); d.dataset.room=r; d.textContent='# '+r; $('rooms').appendChild(d);});}
+function renderChatIncremental(){ensureRoom(state.room); const msgs=state.messages[state.room]||[]; const container=$('messages'); container.innerHTML=''; msgs.forEach(m=>appendMessageToDOM(m));}
+async function sendMessage({text}){if(!text) return; const m={id:'m'+Date.now()+Math.random().toString(36).slice(2,8),name:state.name,text,ts:Date.now()}; state.messages[state.room].push(m); saveMessages(); renderChatIncremental(); persist();}
+
+// Utilities
+function escapeHtml(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// Events
+window.onload = function(){ updateWallet(); renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderShop(); updateAdminVisibility(); }
+
+$('nav').addEventListener('click', e=>{const b=e.target.closest('button[data-page]'); if(!b) return; const page=b.dataset.page; go(page);});
+$('addGameBtn').addEventListener('click', ()=>{const t=$('newGameTitle').value.trim(); if(!t) return; const g={id:'g'+Date.now(),title:t,url:'https://example.com'}; state.games.push(g); $('newGameTitle').value=''; renderGames(); persist(); toast('Game added');});
+$('addVideoBtn').addEventListener('click', ()=>{const url=$('newVideoUrl').value.trim(); if(!url) return; const v={id:'v'+Date.now(),url,title:url}; state.videos.push(v); $('newVideoUrl').value=''; renderVideos(); persist(); toast('Video added');});
+$('chatForm').addEventListener('submit', async(e)=>{e.preventDefault(); const txt=$('chatInput').value.trim(); if(!txt) return; await sendMessage({text:txt}); $('chatInput').value='';});
+$('localSignInBtn').addEventListener('click', ()=>{const n=prompt('Enter display name', state.name||'Guest'); if(n){state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Signed in as '+n);}});
+$('signOutBtn').addEventListener('click', ()=>{state.name='Guest'; state.avatar='G'; persist(); updateWallet(); toast('Signed out');});
+$('saveProfile').addEventListener('click', ()=>{const n=$('nameInput').value.trim(); if(!n) {toast('Enter a name'); return;} state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); renderChatIncremental(); toast('Profile saved');});
+
+// Rules & admin
+function renderRules(){const el=$('rulesList'); el.innerHTML=''; state.rules.forEach((r,idx)=>{const d=document.createElement('div'); d.innerHTML=`<b>${idx+1}.</b> ${escapeHtml(r)}`; el.appendChild(d);});}
+$('addRuleBtn').addEventListener('click', ()=>{const v=$('newRuleInput').value.trim(); if(!v) return; state.rules.push(v); $('newRuleInput').value=''; persist(); renderRules(); toast('Rule added');});
+$('banBtn').addEventListener('click', ()=>{const v=$('banInput').value.trim(); if(!v) return; state.bans.push({id:'b'+Date.now(),value:v}); $('banInput').value=''; renderBans(); persist(); toast('Banned: '+v);});
+function renderBans(){const el=$('bansList'); el.innerHTML=''; if(!state.bans.length){el.textContent='No bans in place.'; return;} state.bans.forEach(b=>{const d=document.createElement('div'); d.textContent=b.value; el.appendChild(d);});}
+
+// Shop demo
+function renderShop(){const el=$('shopList'); el.innerHTML=''; const items=[{id:'s1',title:'Starter Pack',price:100},{id:'s2',title:'Level Kit',price:50}]; items.forEach(it=>{const d=document.createElement('div'); d.className='panel'; d.style.marginTop='8px'; d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><b>${escapeHtml(it.title)}</b><div class="note">${it.price} coins</div></div><button class="small">Buy</button></div>`; el.appendChild(d);});}
+
+// Helpers
+function renderVideos(){const el=$('videosList'); el.innerHTML=''; state.videos.forEach(v=>{const d=document.createElement('div'); d.className='video-thumb'; d.innerHTML = `<div style="width:120px;height:68px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff">▶</div><div><div><b>${escapeHtml(v.title||v.url)}</b></div><div class="note">${escapeHtml(v.url)}</div></div>`; d.addEventListener('click', ()=>openVideo(v)); el.appendChild(d); });}
+function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const embed=youTubeEmbed(v.url); if(embed){c.innerHTML=`<div style="position:relative;padding-top:56.25%"><iframe src="${embed}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} else {c.innerHTML=`<div class="note">Cannot embed this URL.</div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} modal.style.display='flex'; document.getElementById('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+
+// duplicate-safe modal close
+document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') e.target.style.display='none'; });
+
+// small fix: ensure initial renders
+renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderBans(); updateAdminVisibility(); updateWallet();
+
 </script>
 </body>
 </html>
