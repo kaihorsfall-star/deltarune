@@ -1,45 +1,94 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>kaichat — Play. Create. Connect.</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
-:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--line:#293653;--text:#edf2ff;--muted:#9aa8c7;--purple:#9b7bff;--cyan:#51d9df}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-.sidebar{background:linear-gradient(180deg,var(--panel),var(--panel2));padding:28px;display:flex;flex-direction:column;gap:18px}
-.logo{font-weight:700;letter-spacing:1px}.logo span{color:var(--purple)}
-.tagline{font-size:12px;color:var(--muted)}
-.nav{display:flex;flex-direction:column;gap:6px}
-.nav button{background:transparent;border:0;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}
-.nav button.active{background:linear-gradient(90deg,rgba(155,123,255,0.12),transparent);color:var(--text)}
+:root{
+  --bg:#071029; --panel:#0f1724; --panel2:#0b1530; --muted:#9aa8c7; --text:#ecf3ff;
+  --accent1:#9b7bff; --accent2:#51d9df; --accent3:#ffd166;
+  --glass: rgba(255,255,255,0.03);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#020317);color:var(--text);font:15px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh;gap:18px;padding:20px}
+.sidebar{background:linear-gradient(180deg,var(--panel),var(--panel2));padding:28px;border-radius:14px;display:flex;flex-direction:column;gap:18px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.logo{font-weight:800;font-size:20px;letter-spacing:1px}
+.logo span{color:var(--accent1)}
+.tagline{font-size:12px;color:var(--muted);margin-top:4px}
+.nav{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.nav button{background:transparent;border:0;color:var(--muted);padding:12px;border-radius:10px;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px}
+.nav button.active{background:linear-gradient(90deg,rgba(155,123,255,0.12),transparent);color:var(--text);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.01)}
 .panel{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-.main{padding:18px}
+.main{display:flex;flex-direction:column;gap:12px}
 .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between}
-.search{background:transparent;border:1px solid var(--line);padding:8px 10px;border-radius:8px;color:var(--text);width:100%}
-.profile{display:flex;align-items:center;gap:8px}
-.avatar{width:36px;height:36px;border-radius:6px;background:linear-gradient(90deg,var(--purple),var(--cyan));display:flex;align-items:center;justify-content:center;font-weight:700}
-.small{background:transparent;border:1px solid var(--line);padding:6px 10px;border-radius:8px;color:var(--text);cursor:pointer}
-.hero{padding:24px}
-.rooms{margin-top:12px}
-.room{padding:6px 8px;border-radius:6px;color:var(--muted);cursor:pointer}
+.search{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px 12px;border-radius:12px;color:var(--text);width:100%;outline:none}
+.profile{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800}
+.small{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--text);cursor:pointer}
+.hero{display:flex;align-items:center;justify-content:space-between;padding:26px;border-radius:12px;background:linear-gradient(90deg,rgba(81,217,223,0.02),rgba(155,123,255,0.02));box-shadow:0 6px 40px rgba(0,0,0,0.5)}
+.hero h1{margin:0;font-size:28px}
+.hero p{margin:6px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.015),transparent);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .14s ease,box-shadow .14s ease}
+.card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.game-thumb{height:120px;background:#000;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+.video-thumb{width:160px;height:90px;background:#000;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+.room{padding:8px;border-radius:8px;color:var(--muted);cursor:pointer}
 .room.active{background:rgba(255,255,255,0.03);color:var(--text)}
-.msg{padding:8px;border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.02)}
-.msg.mine{background:linear-gradient(90deg,rgba(81,217,223,0.06),transparent)}
-.toast{position:fixed;right:18px;bottom:18px;background:#0f1724;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);display:none}
-.games-list{display:flex;flex-direction:column;gap:8px}
-.game-item{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-.videos-list{display:flex;flex-direction:column;gap:8px}
-.video-thumb{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(3,6,18,0.8);display:none;align-items:center;justify-content:center}
-.modal .content{background:var(--panel);padding:12px;border-radius:8px;max-width:900px;width:90%}
-.note{color:var(--muted);font-size:13px}
+#messages{min-height:220px;max-height:420px;overflow:auto;padding:6px}
+.msg{padding:10px;border-radius:10px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.02)}
+.msg.mine{background:linear-gradient(90deg,rgba(81,217,223,0.04),transparent)}
+.modal{position:fixed;inset:0;background:linear-gradient(rgba(3,6,18,0.85),rgba(3,6,18,0.85));display:none;align-items:center;justify-content:center;z-index:999}
+.modal .content{background:var(--panel);padding:14px;border-radius:10px;max-width:1000px;width:94%;box-shadow:0 20px 80px rgba(0,0,0,0.7)}
+.toast{position:fixed;right:18px;bottom:18px;background:#071025;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);display:none}
+.footer{margin-top:auto;color:var(--muted);font-size:13px}
+.btn-google{display:inline-flex;align-items:center;gap:10px;background:white;color:#000;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px}
+/* responsive adjustments */
+@media (max-width:900px){.app{grid-template-columns:1fr;padding:12px}.sidebar{display:none}}
 </style>
 </head>
 <body>
-<div class="app" id="appRoot">
+<!-- Google Identity script -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<div id="signinOverlay" class="modal" style="display:flex;align-items:center;justify-content:center">
+  <div class="content" id="signinBox">
+    <h2 style="margin:0 0 8px">Welcome to kaichat</h2>
+    <p class="note">Sign in to continue — choose Google or email code.</p>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:12px">
+      <button id="googleSignBtn" class="btn-google" title="Sign in with Google"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M24 9.5c3.54 0 6.02 1.53 7.41 2.8l5.44-5.43C34.7 4.08 29.74 2.5 24 2.5 14.82 2.5 6.91 7.9 3.2 15.55l6.44 5.01C11.42 15.45 17.27 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.59-.14-3.12-.4-4.58H24v8.66h12.7c-.54 2.9-2.14 5.36-4.57 7.02l7 5.41C43.86 37.4 46.5 31.5 46.5 24.5z"/><path fill="#FBBC05" d="M9.64 28.56a14.37 14.37 0 010-9.12L3.2 14.43A23.97 23.97 0 002 24.5c0 3.6.86 7 2.4 9.99l5.24-5.93z"/><path fill="#34A853" d="M24 46.5c6.29 0 11.59-2.08 15.46-5.65l-7-5.41c-2.12 1.42-4.86 2.25-8.46 2.25-6.66 0-12.24-4.54-14.23-10.67l-6.44 5.01C6.91 40.1 14.82 46.5 24 46.5z"/></svg> Sign in with Google</button>
+      <div style="flex:1">
+        <div style="display:flex;gap:8px">
+          <input id="loginEmail" placeholder="you@gmail.com" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <button id="sendCodeBtn" class="small">Send code</button>
+        </div>
+        <div id="sentNotice" style="display:none;margin-top:8px">
+          <div style="display:flex;gap:8px">
+            <input id="loginCode" placeholder="Enter code" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+            <button id="verifyCodeBtn" class="small">Verify</button>
+          </div>
+          <div class="note" style="margin-top:8px">Check your inbox or spam. Code expires in 10 minutes.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+      <button id="continueWithoutLoginBtn" class="btn-outline">Continue as Guest</button>
+      <div style="margin-left:auto" class="note">Demo mode • No server-side user data stored here.</div>
+    </div>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none">
 <aside class="sidebar">
- <div><div class="logo">kai<span>chat</span></div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
+ <div>
+   <div class="logo">kai<span>chat</span></div>
+   <div class="tagline">Play • Create • Connect</div>
+ </div>
  <nav class="nav" id="nav">
   <button class="active" data-page="home">⌂ Home</button>
   <button data-page="games">🎮 Games</button>
@@ -56,61 +105,85 @@
     <div class="note">YOUR WALLET</div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><b>🪙 <span id="coins">250</span></b><div class="note">kaichat Coins</div></div>
   </div>
+  <div style="height:12px"></div>
+  <div class="panel">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="flex:1"><b>Tips</b><div class="note" style="margin-top:6px">Use the search to find creators and games.</div></div>
+    </div>
+  </div>
+  <div class="footer">© kaichat</div>
  </div>
 </aside>
 <main class="main">
  <header class="topbar">
-  <div style="flex:1;max-width:540px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div>
+  <div style="flex:1;max-width:740px"><input class="search" id="globalSearch" placeholder="Search games, videos, creators…"></div>
   <div style="display:flex;align-items:center;gap:12px">
     <div class="profile">
       <div class="avatar" id="avatarEl">G</div>
-      <div id="topName">Guest</div>
+      <div style="display:flex;flex-direction:column"><div id="topName">Guest</div><div class="note" id="topEmail">Not signed in</div></div>
     </div>
     <div id="topClock" class="note">--:--:--</div>
-    <button class="small" id="localSignInBtn">Sign in</button>
     <button class="small" id="signOutBtn" style="display:none">Sign out</button>
   </div>
  </header>
 
- <section class="page active" id="home"><div class="hero panel"><h1>Play together. <span style="color:var(--cyan)">Make something legendary.</span></h1><p class="note">Discover community-made games, videos and creators. Use the navigation to explore.</p></div></section>
+ <section class="page active" id="home"><div class="hero panel"><div>
+   <h1>Play together. <span style="color:var(--accent2)">Make something legendary.</span></h1>
+   <p class="note">Discover community-made games, watch videos, and chat with creators — now with improved sign-in and polished UI.</p>
+ </div>
+ <div style="display:flex;flex-direction:column;gap:8px;min-width:320px;max-width:420px">
+   <div class="panel" style="display:flex;align-items:center;gap:10px">
+     <div style="flex:1">
+       <div class="note">Featured Creator</div>
+       <div style="font-weight:700">Ava the Dev</div>
+     </div>
+     <button class="small">Follow</button>
+   </div>
+   <div class="panel">
+     <div style="display:flex;gap:8px;align-items:center"><div style="font-size:20px">🎉</div><div><b>New</b> creator tools — publishing and analytics (demo)</div></div>
+   </div>
+ </div>
+ </div></section>
 
- <section class="page" id="games" style="display:none;margin-top:12px"><div class="panel"><h2>Arcade</h2><p class="note">Click a game to play it in the modal.</p><div id="gamesList" class="games-list"></div></div></section>
+ <section class="page" id="games" style="display:none;margin-top:12px"><div class="panel"><h2>Arcade</h2><p class="note">Click a game to open it in the play modal.</p>
+  <div id="gamesList" class="grid" style="margin-top:10px"></div>
+ </div></section>
 
  <section class="page" id="create" style="display:none;margin-top:12px"><div class="panel"><h2>Creator studio</h2><p class="note">Create a new game or upload an asset (demo).</p>
-  <div style="margin-top:10px"><input id="newGameTitle" placeholder="New game title" style="width:60%"><button id="addGameBtn" class="small">Add Game</button></div>
+  <div style="margin-top:10px;display:flex;gap:8px"><input id="newGameTitle" placeholder="New game title" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button id="addGameBtn" class="small">Add Game</button></div>
  </div></section>
 
  <section class="page" id="chat" style="display:none;margin-top:12px"><div class="panel"><h2>Community lounge</h2>
   <div style="display:flex;gap:12px">
-    <div style="width:180px"><div class="note">Rooms</div><div id="rooms" class="rooms"></div></div>
+    <div style="width:200px"><div class="note">Rooms</div><div id="rooms" class="rooms"></div></div>
     <div style="flex:1">
-      <div id="messages" style="min-height:200px"></div>
-      <form id="chatForm" style="display:flex;gap:8px;margin-top:8px"><input id="chatInput" placeholder="Say something…" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><input type="file" id="chatFile" style="display:none"><button class="small">Send</button></form>
+      <div id="messages"></div>
+      <form id="chatForm" style="display:flex;gap:8px;margin-top:8px"><input id="chatInput" placeholder="Say something…" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button class="small">Send</button></form>
     </div>
   </div>
  </div></section>
 
  <section class="page" id="videos" style="display:none;margin-top:12px"><div class="panel"><h2>Videos</h2>
-  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="newVideoUrl" placeholder="YouTube URL" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="addVideoBtn" class="small">Add Video</button></div>
-  <div id="videosList" class="videos-list"></div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="newVideoUrl" placeholder="YouTube URL" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button id="addVideoBtn" class="small">Add Video</button></div>
+  <div id="videosList" class="grid"></div>
  </div></section>
 
  <section class="page" id="shop" style="display:none;margin-top:12px"><div class="panel"><h2>Creator marketplace</h2><p class="note">Shop content and creator packs. (Demo items)</p>
-  <div id="shopList"></div>
+  <div id="shopList" class="grid" style="margin-top:10px"></div>
  </div></section>
 
  <section class="page" id="rules" style="display:none;margin-top:12px"><div class="panel" id="rulesPanel"><h2>Community Rules</h2><div id="rulesList"></div></div></section>
 
  <section class="page" id="profile" style="display:none;margin-top:12px"><div class="panel" style="max-width:520px"><h2>Your corner</h2>
-  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="nameInput" placeholder="Display name" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="saveProfile" class="small">Save</button></div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><input id="nameInput" placeholder="Display name" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button id="saveProfile" class="small">Save</button></div>
   <div class="note">Avatar and profile demo. Changes are saved to localStorage.</div>
  </div></section>
 
  <section class="page" id="admin" style="display:none;margin-top:12px"><div class="panel" style="max-width:760px"><h2>Admin Console <span id="adminBadge" class="note">Admin</span></h2>
   <div style="margin-top:8px"><div class="note">Manage rules and bans (demo only).</div>
-  <div style="margin-top:8px"><input id="banInput" placeholder="name or email to ban" style="padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="banBtn" class="small">Ban</button></div>
+  <div style="margin-top:8px"><input id="banInput" placeholder="name or email to ban" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button id="banBtn" class="small">Ban</button></div>
   <div style="margin-top:8px"><div id="bansList"></div></div>
-  <div style="margin-top:8px"><input id="newRuleInput" placeholder="New rule text" style="padding:8px;border-radius:8px;border:1px solid var(--line)"><button id="addRuleBtn" class="small">Add Rule</button></div>
+  <div style="margin-top:8px"><input id="newRuleInput" placeholder="New rule text" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"><button id="addRuleBtn" class="small">Add Rule</button></div>
  </div></section>
 
  <div class="toast" id="toast"></div>
@@ -123,52 +196,82 @@
 
 <script>
 const $ = id => document.getElementById(id);
+const AUTH_BASE = 'https://kaichat-auth.example.com'; // REPLACE with your deployed auth server URL
+const GOOGLE_CLIENT_ID = 'REPLACE_WITH_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+
 let state = {coins:250, name:'Guest', avatar:'G', videos:[], games:[], messages:{}, room:'general', bans:[], rules:[]};
 try{const saved=JSON.parse(localStorage.getItem('kaichat-demo-state')||'null'); if(saved) state = {...state,...saved};}catch(e){}
 try{const msgs=JSON.parse(localStorage.getItem('kaichat-chat-messages')||'{}'); if(msgs) state.messages = msgs;}catch(e){}
 try{const r=JSON.parse(localStorage.getItem('kaichat-rules')||'null'); if(r) state.rules = r;}catch(e){}
 if(!state.rules||!state.rules.length) state.rules = ['Be respectful.','No hate or harassment.','No doxxing.','No spam.'];
-function persist(){try{const clone={...state};clone.messages=state.messages; localStorage.setItem('kaichat-demo-state', JSON.stringify(clone)); localStorage.setItem('kaichat-chat-messages', JSON.stringify(state.messages)); localStorage.setItem('kaichat-rules', JSON.stringify(state.rules));}catch(e){}}
+
+function persist(){try{const clone={...state};clone.messages=state.messages; localStorage.setItem('kaichat-demo-state', JSON.stringify(clone)); localStorage.setItem('kaichat-chat-messages', JSON.stringify(state.messages)); localStorage.setItem('kaichat-rules', JSON.stringify(state.rules));}catch(e){}
+}
 function toast(s){$('toast').textContent=s; $('toast').style.display='block'; clearTimeout(window._toast); window._toast=setTimeout(()=>$('toast').style.display='none',2500)}
 function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none')); document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.page===page));}
-function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar;}
-function isAdmin(){try{return (state.name && state.name.toLowerCase()==='kai horsfall');}catch(e){return false;}}
+function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar; $('topEmail').textContent = state.google?state.google.email:'Not signed in';}
+function isAdmin(){try{return (state.google && state.google.email && state.google.email.toLowerCase()==='kai.horsfall@cmfalcons.org') || (state.name && state.name.toLowerCase()==='kai horsfall');}catch(e){return false;}}
 function updateAdminVisibility(){const btn=$('navAdminBtn'); if(isAdmin()) btn.style.display='block'; else btn.style.display='none';}
 
+// Google sign-in handling
+function initGoogle(){ try{ if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){
+    google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse, ux_mode: 'popup' });
+    // render a Google button into the signin box (invisible fallback handled by our custom button)
+    const btn = document.createElement('div'); btn.id='gSignIn'; document.getElementById('signinBox').insertBefore(btn, document.getElementById('signinBox').children[3]);
+    google.accounts.id.renderButton(btn, { theme: 'outline', size: 'large' });
+  }}catch(e){console.warn('Google client not ready',e);} }
+
+function handleCredentialResponse(response){ try{ const payload = JSON.parse(atob(response.credential.split('.')[1])); state.google = payload; if(payload.name) state.name = payload.name; if(payload.email) { state.avatar = payload.name?payload.name.charAt(0).toUpperCase():payload.email.charAt(0).toUpperCase(); } persist(); updateWallet(); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; toast('Signed in as '+state.name);}catch(e){console.error(e);} }
+
+document.getElementById('googleSignBtn').addEventListener('click', ()=>{ if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){ try{google.accounts.id.prompt();}catch(e){ toast('Google sign-in not available'); } } else { toast('Set GOOGLE_CLIENT_ID in the HTML to enable Google Sign-In'); } });
+
+// Auth server flows
+async function requestSignInCode(){const email=$('loginEmail').value.trim(); if(!email){toast('Enter an email');return;} try{const r=await fetch(AUTH_BASE+'/auth/request-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})}); const j=await r.json(); if(r.ok){$('sentNotice').style.display='block'; toast('Code sent — check your email');} else {toast(j.error||'Failed to send code');}}catch(e){console.error(e);toast('Network error');}}
+async function verifySignInCode(){const email=$('loginEmail').value.trim(); const code=$('loginCode').value.trim(); if(!email||!code){toast('Email and code required');return;} try{const r=await fetch(AUTH_BASE+'/auth/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,code})}); const j=await r.json(); if(r.ok){localStorage.setItem('kaichat-auth-token', j.token); localStorage.setItem('kaichat-user', JSON.stringify(j.user)); state.google=j.user; state.name=j.user.name||j.user.email.split('@')[0]; state.avatar=state.name.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Signed in as '+state.name); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';} else {toast(j.error||'Verification failed');}}catch(e){console.error(e);toast('Network error');}}
+
 // Games
-function renderGames(){const el = $('gamesList'); el.innerHTML=''; if(!state.games.length){state.games = [ {id:'g1',title:'Space Runner',url:'https://example.com'}, {id:'g2',title:'Puzzle Blocks',url:'https://example.com'} ];}
- state.games.forEach(g=>{const d=document.createElement('div'); d.className='game-item'; d.textContent=g.title; d.dataset.id=g.id; d.addEventListener('click', ()=>openGame(g)); el.appendChild(d); }); persist();}
-function openGame(g){const modal=$('modal'); const c=$('modalContent'); c.innerHTML = `<h3>${escapeHtml(g.title)}</h3><div class="note">Demo iframe or link below.</div><div style="margin-top:8px"><iframe src="about:blank" style="width:100%;height:480px;border:0;background:#000" title="${escapeHtml(g.title)}"></iframe><div style="margin-top:8px"><a class="small" href="${escapeHtml(g.url)}" target="_blank">Open in new tab</a></div></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`; modal.style.display='flex'; $('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+function renderGames(){const el = $('gamesList'); el.innerHTML=''; if(!state.games.length){state.games = [ {id:'g1',title:'Space Runner',url:'https://example.com',thumb:''}, {id:'g2',title:'Puzzle Blocks',url:'https://example.com',thumb:''} ];}
+ state.games.forEach(g=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div class="game-thumb">${escapeHtml(g.title)}</div><div style="margin-top:8px"><b>${escapeHtml(g.title)}</b><div class="note">Community game</div></div>`; d.addEventListener('click', ()=>openGame(g)); el.appendChild(d); }); persist();}
+function openGame(g){const modal=$('modal'); const c=$('modalContent'); c.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><h3>${escapeHtml(g.title)}</h3><button id="closeModal" class="small">Close</button></div><div style="margin-top:12px"><div class="game-thumb" style="height:440px;background:#000">Play area (demo)</div><div style="margin-top:8px"><a class="small" href="${escapeHtml(g.url)}" target="_blank">Open in new tab</a></div></div>`; modal.style.display='flex'; document.getElementById('closeModal').addEventListener('click', ()=>modal.style.display='none');}
 
 // Videos
 function isYouTubeUrl(url){try{const u=new URL(url); return u.hostname.includes('youtube.com')||u.hostname.includes('youtu.be');}catch(e){return false;}}
 function youTubeEmbed(url){try{const u=new URL(url); if(u.hostname.includes('youtu.be')) return 'https://www.youtube.com/embed/'+u.pathname.slice(1); if(u.hostname.includes('youtube.com')) return 'https://www.youtube.com/embed/'+(new URLSearchParams(u.search).get('v')); return ''; }catch(e){return '';}}
-function renderVideos(){const el=$('videosList'); el.innerHTML=''; state.videos.forEach(v=>{const d=document.createElement('div'); d.className='video-thumb'; d.innerHTML = `<div style="width:120px;height:68px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff">▶</div><div><div><b>${escapeHtml(v.title||v.url)}</b></div><div class="note">${escapeHtml(v.url)}</div></div>`; d.addEventListener('click', ()=>openVideo(v)); el.appendChild(d); });}
-function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const embed=youTubeEmbed(v.url); if(embed){c.innerHTML=`<div style="position:relative;padding-top:56.25%"><iframe src="${embed}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} else {c.innerHTML=`<div class="note">Cannot embed this URL.</div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} modal.style.display='flex'; $('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+function renderVideos(){const el=$('videosList'); el.innerHTML=''; state.videos.forEach(v=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div style="display:flex;gap:8px"><div class="video-thumb">▶</div><div><b>${escapeHtml(v.title||v.url)}</b><div class="note">${escapeHtml(v.url)}</div></div></div>`; d.addEventListener('click', ()=>openVideo(v)); el.appendChild(d); });}
+function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const embed=youTubeEmbed(v.url); if(embed){c.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><h3>${escapeHtml(v.title||v.url)}</h3><button id="closeModal" class="small">Close</button></div><div style="margin-top:12px;position:relative;padding-top:56.25%"><iframe src="${embed}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div>`;} else {c.innerHTML=`<div class="note">Cannot embed this URL.</div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} modal.style.display='flex'; document.getElementById('closeModal').addEventListener('click', ()=>modal.style.display='none');}
 
 // Chat
 function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
 ensureRoom(state.room);
 function saveMessages(){localStorage.setItem('kaichat-chat-messages', JSON.stringify(state.messages));}
-function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.innerHTML=`<b>${escapeHtml(m.name)}</b> <div class="note">${timeAgoShort(m.ts)}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`; c.appendChild(el); c.scrollTop = c.scrollHeight;}
+function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><b>${escapeHtml(m.name)}</b><div class="note">${timeAgoShort(m.ts)}</div></div></div><div style="margin-top:8px">${escapeHtml(m.text)}</div>`; c.appendChild(el); c.scrollTop = c.scrollHeight;}
 function timeAgoShort(ts){let diff=Math.floor((Date.now()-ts)/1000); if(diff<5) return 'just now'; if(diff<60) return diff+'s'; if(diff<3600) return Math.floor(diff/60)+'m'; if(diff<86400) return Math.floor(diff/3600)+'h'; return Math.floor(diff/86400)+'d';}
 function renderRooms(){const rooms=['general','games','creators','random']; $('rooms').innerHTML=''; rooms.forEach(r=>{const d=document.createElement('div'); d.className='room '+(r===state.room?'active':''); d.dataset.room=r; d.textContent='# '+r; $('rooms').appendChild(d);});}
 function renderChatIncremental(){ensureRoom(state.room); const msgs=state.messages[state.room]||[]; const container=$('messages'); container.innerHTML=''; msgs.forEach(m=>appendMessageToDOM(m));}
 async function sendMessage({text}){if(!text) return; const m={id:'m'+Date.now()+Math.random().toString(36).slice(2,8),name:state.name,text,ts:Date.now()}; state.messages[state.room].push(m); saveMessages(); renderChatIncremental(); persist();}
 
 // Utilities
-function escapeHtml(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));}
 
 // Events
-window.onload = function(){ updateWallet(); renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderShop(); updateAdminVisibility(); }
+window.onload = function(){
+  updateWallet(); renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderShop(); updateAdminVisibility();
+  // try to initialize google sign-in (will no-op if client id not set)
+  initGoogle();
+  // restore session if present
+  try{const token=localStorage.getItem('kaichat-auth-token'); const savedUser=localStorage.getItem('kaichat-user'); if(token && savedUser){const user=JSON.parse(savedUser); state.name=user.name||user.email.split('@')[0]; state.avatar=state.name.charAt(0).toUpperCase(); state.google=user; updateWallet(); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';}}catch(e){}
+}
 
 $('nav').addEventListener('click', e=>{const b=e.target.closest('button[data-page]'); if(!b) return; const page=b.dataset.page; go(page);});
 $('addGameBtn').addEventListener('click', ()=>{const t=$('newGameTitle').value.trim(); if(!t) return; const g={id:'g'+Date.now(),title:t,url:'https://example.com'}; state.games.push(g); $('newGameTitle').value=''; renderGames(); persist(); toast('Game added');});
 $('addVideoBtn').addEventListener('click', ()=>{const url=$('newVideoUrl').value.trim(); if(!url) return; const v={id:'v'+Date.now(),url,title:url}; state.videos.push(v); $('newVideoUrl').value=''; renderVideos(); persist(); toast('Video added');});
 $('chatForm').addEventListener('submit', async(e)=>{e.preventDefault(); const txt=$('chatInput').value.trim(); if(!txt) return; await sendMessage({text:txt}); $('chatInput').value='';});
-$('localSignInBtn').addEventListener('click', ()=>{const n=prompt('Enter display name', state.name||'Guest'); if(n){state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Signed in as '+n);}});
-$('signOutBtn').addEventListener('click', ()=>{state.name='Guest'; state.avatar='G'; persist(); updateWallet(); toast('Signed out');});
+$('sendCodeBtn').addEventListener('click', requestSignInCode);
+$('verifyCodeBtn').addEventListener('click', verifySignInCode);
+$('continueWithoutLoginBtn').addEventListener('click',()=>{document.getElementById('signinOverlay').style.display='none'; document.getElementById('appRoot').style.display='grid';});
+$('signOutBtn').addEventListener('click', ()=>{state.name='Guest'; state.avatar='G'; localStorage.removeItem('kaichat-auth-token'); localStorage.removeItem('kaichat-user'); persist(); updateWallet(); toast('Signed out'); document.getElementById('signinOverlay').style.display='flex'; document.getElementById('appRoot').style.display='none';});
 $('saveProfile').addEventListener('click', ()=>{const n=$('nameInput').value.trim(); if(!n) {toast('Enter a name'); return;} state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); renderChatIncremental(); toast('Profile saved');});
+$('rooms').addEventListener('click',e=>{let r=e.target.closest('.room'); if(r){state.room=r.dataset.room; renderRooms(); renderChatIncremental(); persist();}});
 
 // Rules & admin
 function renderRules(){const el=$('rulesList'); el.innerHTML=''; state.rules.forEach((r,idx)=>{const d=document.createElement('div'); d.innerHTML=`<b>${idx+1}.</b> ${escapeHtml(r)}`; el.appendChild(d);});}
@@ -177,14 +280,10 @@ $('banBtn').addEventListener('click', ()=>{const v=$('banInput').value.trim(); i
 function renderBans(){const el=$('bansList'); el.innerHTML=''; if(!state.bans.length){el.textContent='No bans in place.'; return;} state.bans.forEach(b=>{const d=document.createElement('div'); d.textContent=b.value; el.appendChild(d);});}
 
 // Shop demo
-function renderShop(){const el=$('shopList'); el.innerHTML=''; const items=[{id:'s1',title:'Starter Pack',price:100},{id:'s2',title:'Level Kit',price:50}]; items.forEach(it=>{const d=document.createElement('div'); d.className='panel'; d.style.marginTop='8px'; d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><b>${escapeHtml(it.title)}</b><div class="note">${it.price} coins</div></div><button class="small">Buy</button></div>`; el.appendChild(d);});}
-
-// Helpers
-function renderVideos(){const el=$('videosList'); el.innerHTML=''; state.videos.forEach(v=>{const d=document.createElement('div'); d.className='video-thumb'; d.innerHTML = `<div style="width:120px;height:68px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff">▶</div><div><div><b>${escapeHtml(v.title||v.url)}</b></div><div class="note">${escapeHtml(v.url)}</div></div>`; d.addEventListener('click', ()=>openVideo(v)); el.appendChild(d); });}
-function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const embed=youTubeEmbed(v.url); if(embed){c.innerHTML=`<div style="position:relative;padding-top:56.25%"><iframe src="${embed}" style="position:absolute;inset:0;width:100%;height:100%;border:0" allowfullscreen></iframe></div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} else {c.innerHTML=`<div class="note">Cannot embed this URL.</div><div style="margin-top:8px;text-align:right"><button id="closeModal" class="small">Close</button></div>`;} modal.style.display='flex'; document.getElementById('closeModal').addEventListener('click', ()=>modal.style.display='none');}
+function renderShop(){const el=$('shopList'); el.innerHTML=''; const items=[{id:'s1',title:'Starter Pack',price:100},{id:'s2',title:'Level Kit',price:50}]; items.forEach(it=>{const d=document.createElement('div'); d.className='card'; d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div><b>${escapeHtml(it.title)}</b><div class="note">${it.price} coins</div></div><button class="small">Buy</button></div>`; el.appendChild(d);});}
 
 // duplicate-safe modal close
-document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') e.target.style.display='none'; });
+$('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') e.target.style.display='none'; });
 
 // small fix: ensure initial renders
 renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderBans(); updateAdminVisibility(); updateWallet();
