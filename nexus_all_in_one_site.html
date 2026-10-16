@@ -46,40 +46,41 @@ body{margin:0;background:linear-gradient(180deg,var(--bg),#020317);color:var(--t
 .modal .content{background:var(--panel);padding:14px;border-radius:10px;max-width:1000px;width:94%;box-shadow:0 20px 80px rgba(0,0,0,0.7)}
 .toast{position:fixed;right:18px;bottom:18px;background:#071025;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);display:none}
 .footer{margin-top:auto;color:var(--muted);font-size:13px}
-.btn-google{display:inline-flex;align-items:center;gap:10px;background:white;color:#000;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
 .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px}
 /* responsive adjustments */
 @media (max-width:900px){.app{grid-template-columns:1fr;padding:12px}.sidebar{display:none}}
 </style>
 </head>
 <body>
-<!-- Google Identity script -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 
+<!-- Sign-in modal: replaced Google with username/password register & login -->
 <div id="signinOverlay" class="modal" style="display:flex;align-items:center;justify-content:center">
   <div class="content" id="signinBox">
     <h2 style="margin:0 0 8px">Welcome to kaichat</h2>
-    <p class="note">Sign in to continue — choose Google or email code.</p>
-    <div style="display:flex;gap:10px;align-items:center;margin-top:12px">
-      <button id="googleSignBtn" class="btn-google" title="Sign in with Google"><svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M24 9.5c3.54 0 6.02 1.53 7.41 2.8l5.44-5.43C34.7 4.08 29.74 2.5 24 2.5 14.82 2.5 6.91 7.9 3.2 15.55l6.44 5.01C11.42 15.45 17.27 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.59-.14-3.12-.4-4.58H24v8.66h12.7c-.54 2.9-2.14 5.36-4.57 7.02l7 5.41C43.86 37.4 46.5 31.5 46.5 24.5z"/><path fill="#FBBC05" d="M9.64 28.56a14.37 14.37 0 010-9.12L3.2 14.43A23.97 23.97 0 002 24.5c0 3.6.86 7 2.4 9.99l5.24-5.93z"/><path fill="#34A853" d="M24 46.5c6.29 0 11.59-2.08 15.46-5.65l-7-5.41c-2.12 1.42-4.86 2.25-8.46 2.25-6.66 0-12.24-4.54-14.23-10.67l-6.44 5.01C6.91 40.1 14.82 46.5 24 46.5z"/></svg> Sign in with Google</button>
-      <div style="flex:1">
-        <div style="display:flex;gap:8px">
-          <input id="loginEmail" placeholder="you@gmail.com" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
-          <button id="sendCodeBtn" class="small">Send code</button>
+    <p class="note">Sign in to continue — use your email and password or register a new account.</p>
+
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:260px">
+        <h3 style="margin:0 0 8px">Login</h3>
+        <div style="display:flex;gap:8px;flex-direction:column">
+          <input id="authEmail" placeholder="Email" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <input id="authPassword" type="password" placeholder="Password" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <div style="display:flex;gap:8px;align-items:center"><button id="loginBtn" class="small">Login</button><button id="guestBtn" class="btn-outline">Continue as Guest</button></div>
         </div>
-        <div id="sentNotice" style="display:none;margin-top:8px">
-          <div style="display:flex;gap:8px">
-            <input id="loginCode" placeholder="Enter code" style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
-            <button id="verifyCodeBtn" class="small">Verify</button>
-          </div>
-          <div class="note" style="margin-top:8px">Check your inbox or spam. Code expires in 10 minutes.</div>
+      </div>
+
+      <div style="flex:1;min-width:260px">
+        <h3 style="margin:0 0 8px">Register</h3>
+        <div style="display:flex;gap:8px;flex-direction:column">
+          <input id="regName" placeholder="Display name" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <input id="regEmail" placeholder="Email" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <input id="regPassword" type="password" placeholder="Password" style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+          <div style="display:flex;gap:8px;align-items:center"><button id="registerBtn" class="small">Register</button></div>
         </div>
       </div>
     </div>
-    <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-      <button id="continueWithoutLoginBtn" class="btn-outline">Continue as Guest</button>
-      <div style="margin-left:auto" class="note">Demo mode • No server-side user data stored here.</div>
-    </div>
+
+    <div style="margin-top:12px"><div class="note">Your account is stored on the server — passwords are hashed. For production, use a proper database and stronger security.</div></div>
   </div>
 </div>
 
@@ -129,7 +130,7 @@ body{margin:0;background:linear-gradient(180deg,var(--bg),#020317);color:var(--t
 
  <section class="page active" id="home"><div class="hero panel"><div>
    <h1>Play together. <span style="color:var(--accent2)">Make something legendary.</span></h1>
-   <p class="note">Discover community-made games, watch videos, and chat with creators — now with improved sign-in and polished UI.</p>
+   <p class="note">Discover community-made games, watch videos, and chat with creators — now with username/password auth and a polished UI.</p>
  </div>
  <div style="display:flex;flex-direction:column;gap:8px;min-width:320px;max-width:420px">
    <div class="panel" style="display:flex;align-items:center;gap:10px">
@@ -196,10 +197,8 @@ body{margin:0;background:linear-gradient(180deg,var(--bg),#020317);color:var(--t
 
 <script>
 const $ = id => document.getElementById(id);
-const AUTH_BASE = 'https://kaichat-auth.example.com'; // REPLACE with your deployed auth server URL
-const GOOGLE_CLIENT_ID = 'REPLACE_WITH_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 
-let state = {coins:250, name:'Guest', avatar:'G', videos:[], games:[], messages:{}, room:'general', bans:[], rules:[]};
+let state = {coins:250, name:'Guest', avatar:'G', user:null, videos:[], games:[], messages:{}, room:'general', bans:[], rules:[]};
 try{const saved=JSON.parse(localStorage.getItem('kaichat-demo-state')||'null'); if(saved) state = {...state,...saved};}catch(e){}
 try{const msgs=JSON.parse(localStorage.getItem('kaichat-chat-messages')||'{}'); if(msgs) state.messages = msgs;}catch(e){}
 try{const r=JSON.parse(localStorage.getItem('kaichat-rules')||'null'); if(r) state.rules = r;}catch(e){}
@@ -209,25 +208,16 @@ function persist(){try{const clone={...state};clone.messages=state.messages; loc
 }
 function toast(s){$('toast').textContent=s; $('toast').style.display='block'; clearTimeout(window._toast); window._toast=setTimeout(()=>$('toast').style.display='none',2500)}
 function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none')); document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.page===page));}
-function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar; $('topEmail').textContent = state.google?state.google.email:'Not signed in';}
-function isAdmin(){try{return (state.google && state.google.email && state.google.email.toLowerCase()==='kai.horsfall@cmfalcons.org') || (state.name && state.name.toLowerCase()==='kai horsfall');}catch(e){return false;}}
+function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar; $('topEmail').textContent = state.user?state.user.email:'Not signed in';}
+function isAdmin(){try{return (state.user && state.user.email && state.user.email.toLowerCase()==='kai.horsfall@cmfalcons.org') || (state.name && state.name.toLowerCase()==='kai horsfall');}catch(e){return false;}}
 function updateAdminVisibility(){const btn=$('navAdminBtn'); if(isAdmin()) btn.style.display='block'; else btn.style.display='none';}
 
-// Google sign-in handling
-function initGoogle(){ try{ if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){
-    google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse, ux_mode: 'popup' });
-    // render a Google button into the signin box (invisible fallback handled by our custom button)
-    const btn = document.createElement('div'); btn.id='gSignIn'; document.getElementById('signinBox').insertBefore(btn, document.getElementById('signinBox').children[3]);
-    google.accounts.id.renderButton(btn, { theme: 'outline', size: 'large' });
-  }}catch(e){console.warn('Google client not ready',e);} }
+// Auth: register/login using server endpoints
+async function registerUser(){const name=$('regName').value.trim(); const email=$('regEmail').value.trim(); const password=$('regPassword').value; if(!email||!password){toast('Email and password required');return;} try{const r=await fetch('/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password})}); const j=await r.json(); if(r.ok){localStorage.setItem('kaichat-auth-token', j.token); localStorage.setItem('kaichat-user', JSON.stringify(j.user)); state.user=j.user; state.name=j.user.name; state.avatar=state.name.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Registered and signed in as '+state.name); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';} else {toast(j.error||'Registration failed');}}catch(e){console.error(e);toast('Network error');}}
 
-function handleCredentialResponse(response){ try{ const payload = JSON.parse(atob(response.credential.split('.')[1])); state.google = payload; if(payload.name) state.name = payload.name; if(payload.email) { state.avatar = payload.name?payload.name.charAt(0).toUpperCase():payload.email.charAt(0).toUpperCase(); } persist(); updateWallet(); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid'; toast('Signed in as '+state.name);}catch(e){console.error(e);} }
+async function loginUser(){const email=$('authEmail').value.trim(); const password=$('authPassword').value; if(!email||!password){toast('Email and password required');return;} try{const r=await fetch('/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})}); const j=await r.json(); if(r.ok){localStorage.setItem('kaichat-auth-token', j.token); localStorage.setItem('kaichat-user', JSON.stringify(j.user)); state.user=j.user; state.name=j.user.name; state.avatar=state.name.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Signed in as '+state.name); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';} else {toast(j.error||'Login failed');}}catch(e){console.error(e);toast('Network error');}}
 
-document.getElementById('googleSignBtn').addEventListener('click', ()=>{ if(GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('REPLACE')){ try{google.accounts.id.prompt();}catch(e){ toast('Google sign-in not available'); } } else { toast('Set GOOGLE_CLIENT_ID in the HTML to enable Google Sign-In'); } });
-
-// Auth server flows
-async function requestSignInCode(){const email=$('loginEmail').value.trim(); if(!email){toast('Enter an email');return;} try{const r=await fetch(AUTH_BASE+'/auth/request-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})}); const j=await r.json(); if(r.ok){$('sentNotice').style.display='block'; toast('Code sent — check your email');} else {toast(j.error||'Failed to send code');}}catch(e){console.error(e);toast('Network error');}}
-async function verifySignInCode(){const email=$('loginEmail').value.trim(); const code=$('loginCode').value.trim(); if(!email||!code){toast('Email and code required');return;} try{const r=await fetch(AUTH_BASE+'/auth/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,code})}); const j=await r.json(); if(r.ok){localStorage.setItem('kaichat-auth-token', j.token); localStorage.setItem('kaichat-user', JSON.stringify(j.user)); state.google=j.user; state.name=j.user.name||j.user.email.split('@')[0]; state.avatar=state.name.charAt(0).toUpperCase(); persist(); updateWallet(); toast('Signed in as '+state.name); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';} else {toast(j.error||'Verification failed');}}catch(e){console.error(e);toast('Network error');}}
+function signOut(){state.name='Guest'; state.avatar='G'; state.user=null; localStorage.removeItem('kaichat-auth-token'); localStorage.removeItem('kaichat-user'); persist(); updateWallet(); toast('Signed out'); document.getElementById('signinOverlay').style.display='flex'; document.getElementById('appRoot').style.display='none';}
 
 // Games
 function renderGames(){const el = $('gamesList'); el.innerHTML=''; if(!state.games.length){state.games = [ {id:'g1',title:'Space Runner',url:'https://example.com',thumb:''}, {id:'g2',title:'Puzzle Blocks',url:'https://example.com',thumb:''} ];}
@@ -256,20 +246,32 @@ function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;',
 // Events
 window.onload = function(){
   updateWallet(); renderGames(); renderVideos(); renderRooms(); renderChatIncremental(); renderRules(); renderShop(); updateAdminVisibility();
-  // try to initialize google sign-in (will no-op if client id not set)
-  initGoogle();
   // restore session if present
-  try{const token=localStorage.getItem('kaichat-auth-token'); const savedUser=localStorage.getItem('kaichat-user'); if(token && savedUser){const user=JSON.parse(savedUser); state.name=user.name||user.email.split('@')[0]; state.avatar=state.name.charAt(0).toUpperCase(); state.google=user; updateWallet(); $('signinOverlay').style.display='none'; $('appRoot').style.display='grid';}}catch(e){}
+  try{
+    const token = localStorage.getItem('kaichat-auth-token');
+    const savedUser = localStorage.getItem('kaichat-user');
+    if(token && savedUser){
+      state.user = JSON.parse(savedUser);
+      state.name = state.user.name || state.user.email.split('@')[0];
+      state.avatar = state.name.charAt(0).toUpperCase();
+      $('signinOverlay').style.display='none';
+      $('appRoot').style.display='grid';
+    } else {
+      // show sign-in
+      $('signinOverlay').style.display='flex';
+      $('appRoot').style.display='none';
+    }
+  }catch(e){console.error(e)}
 }
 
 $('nav').addEventListener('click', e=>{const b=e.target.closest('button[data-page]'); if(!b) return; const page=b.dataset.page; go(page);});
 $('addGameBtn').addEventListener('click', ()=>{const t=$('newGameTitle').value.trim(); if(!t) return; const g={id:'g'+Date.now(),title:t,url:'https://example.com'}; state.games.push(g); $('newGameTitle').value=''; renderGames(); persist(); toast('Game added');});
 $('addVideoBtn').addEventListener('click', ()=>{const url=$('newVideoUrl').value.trim(); if(!url) return; const v={id:'v'+Date.now(),url,title:url}; state.videos.push(v); $('newVideoUrl').value=''; renderVideos(); persist(); toast('Video added');});
 $('chatForm').addEventListener('submit', async(e)=>{e.preventDefault(); const txt=$('chatInput').value.trim(); if(!txt) return; await sendMessage({text:txt}); $('chatInput').value='';});
-$('sendCodeBtn').addEventListener('click', requestSignInCode);
-$('verifyCodeBtn').addEventListener('click', verifySignInCode);
-$('continueWithoutLoginBtn').addEventListener('click',()=>{document.getElementById('signinOverlay').style.display='none'; document.getElementById('appRoot').style.display='grid';});
-$('signOutBtn').addEventListener('click', ()=>{state.name='Guest'; state.avatar='G'; localStorage.removeItem('kaichat-auth-token'); localStorage.removeItem('kaichat-user'); persist(); updateWallet(); toast('Signed out'); document.getElementById('signinOverlay').style.display='flex'; document.getElementById('appRoot').style.display='none';});
+$('loginBtn').addEventListener('click', loginUser);
+$('registerBtn').addEventListener('click', registerUser);
+$('guestBtn').addEventListener('click', ()=>{document.getElementById('signinOverlay').style.display='none'; document.getElementById('appRoot').style.display='grid';});
+$('signOutBtn').addEventListener('click', signOut);
 $('saveProfile').addEventListener('click', ()=>{const n=$('nameInput').value.trim(); if(!n) {toast('Enter a name'); return;} state.name=n; state.avatar=n.charAt(0).toUpperCase(); persist(); updateWallet(); renderChatIncremental(); toast('Profile saved');});
 $('rooms').addEventListener('click',e=>{let r=e.target.closest('.room'); if(r){state.room=r.dataset.room; renderRooms(); renderChatIncremental(); persist();}});
 
