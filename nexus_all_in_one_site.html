@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEXUS — Play. Create. Connect.</title>
+<title>kaichat — Play. Create. Connect.</title>
 <style>
 :root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233c;--line:#293653;--text:#edf2ff;--muted:#9aa8c7;--purple:#9b7bff;--cyan:#51d9df}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#22204c 0,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
@@ -39,7 +39,7 @@
 <body>
 <div class="app" id="appRoot">
 <aside class="sidebar">
- <div><div class="logo">NE<span>X</span>US</div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
+ <div><div class="logo">kai<span>chat</span></div><div class="tagline">YOUR WORLD, TOGETHER</div></div>
  <nav class="nav" id="nav">
   <button class="active" data-page="home">⌂ Home</button>
   <button data-page="games">🎮 Games</button>
@@ -54,7 +54,7 @@
  <div style="margin-top:auto">
   <div class="panel">
     <div class="note">YOUR WALLET</div>
-    <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><b>🪙 <span id="coins">250</span></b><div class="note">Nexus Coins</div></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:6px"><b>🪙 <span id="coins">250</span></b><div class="note">kaichat Coins</div></div>
   </div>
  </div>
 </aside>
@@ -124,11 +124,11 @@
 <script>
 const $ = id => document.getElementById(id);
 let state = {coins:250, name:'Guest', avatar:'G', videos:[], games:[], messages:{}, room:'general', bans:[], rules:[]};
-try{const saved=JSON.parse(localStorage.getItem('nexus-demo-state')||'null'); if(saved) state = {...state,...saved};}catch(e){}
-try{const msgs=JSON.parse(localStorage.getItem('nexus-chat-messages')||'{}'); if(msgs) state.messages = msgs;}catch(e){}
-try{const r=JSON.parse(localStorage.getItem('nexus-rules')||'null'); if(r) state.rules = r;}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem('kaichat-demo-state')||'null'); if(saved) state = {...state,...saved};}catch(e){}
+try{const msgs=JSON.parse(localStorage.getItem('kaichat-chat-messages')||'{}'); if(msgs) state.messages = msgs;}catch(e){}
+try{const r=JSON.parse(localStorage.getItem('kaichat-rules')||'null'); if(r) state.rules = r;}catch(e){}
 if(!state.rules||!state.rules.length) state.rules = ['Be respectful.','No hate or harassment.','No doxxing.','No spam.'];
-function persist(){try{const clone={...state};clone.messages=state.messages; localStorage.setItem('nexus-demo-state', JSON.stringify(clone)); localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages)); localStorage.setItem('nexus-rules', JSON.stringify(state.rules));}catch(e){}}
+function persist(){try{const clone={...state};clone.messages=state.messages; localStorage.setItem('kaichat-demo-state', JSON.stringify(clone)); localStorage.setItem('kaichat-chat-messages', JSON.stringify(state.messages)); localStorage.setItem('kaichat-rules', JSON.stringify(state.rules));}catch(e){}}
 function toast(s){$('toast').textContent=s; $('toast').style.display='block'; clearTimeout(window._toast); window._toast=setTimeout(()=>$('toast').style.display='none',2500)}
 function go(page){document.querySelectorAll('.page').forEach(p=>p.style.display=(p.id===page?'block':'none')); document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.page===page));}
 function updateWallet(){$('coins').textContent = state.coins; $('topName').textContent = state.name; $('avatarEl').textContent = state.avatar;}
@@ -149,7 +149,7 @@ function openVideo(v){const modal=$('modal'); const c=$('modalContent'); const e
 // Chat
 function ensureRoom(r){state.messages[r]=state.messages[r]||[]}
 ensureRoom(state.room);
-function saveMessages(){localStorage.setItem('nexus-chat-messages', JSON.stringify(state.messages));}
+function saveMessages(){localStorage.setItem('kaichat-chat-messages', JSON.stringify(state.messages));}
 function appendMessageToDOM(m){ensureRoom(state.room); const c=$('messages'); const el=document.createElement('div'); el.className='msg '+(m.name===state.name?'mine':''); el.dataset.msgId=m.id; el.innerHTML=`<b>${escapeHtml(m.name)}</b> <div class="note">${timeAgoShort(m.ts)}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`; c.appendChild(el); c.scrollTop = c.scrollHeight;}
 function timeAgoShort(ts){let diff=Math.floor((Date.now()-ts)/1000); if(diff<5) return 'just now'; if(diff<60) return diff+'s'; if(diff<3600) return Math.floor(diff/60)+'m'; if(diff<86400) return Math.floor(diff/3600)+'h'; return Math.floor(diff/86400)+'d';}
 function renderRooms(){const rooms=['general','games','creators','random']; $('rooms').innerHTML=''; rooms.forEach(r=>{const d=document.createElement('div'); d.className='room '+(r===state.room?'active':''); d.dataset.room=r; d.textContent='# '+r; $('rooms').appendChild(d);});}
