@@ -1,0 +1,19 @@
+{
+  "name": "nexus_fullstack_site",
+  "version": "1.0.0",
+  "description": "Kaichat demo fullstack site (static front-end + simple auth server)",
+  "main": "auth-server/index.js",
+  "scripts": {
+    "start": "node auth-server/index.js",
+    "dev": "nodemon auth-server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.0.3"
+  },
+  "engines": { "node": ">=16" }
+}
