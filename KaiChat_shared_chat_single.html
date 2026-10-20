@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KaiChat Single HTML</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b1020;
+      color: #e5e7eb;
+      font-family: Arial, sans-serif;
+    }
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(5, 10, 20, 0.9);
+      z-index: 9999;
+    }
+    #loading span {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #dbeafe;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading"><span>Loading KaiChat...</span></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    (async function () {
+      const zipUrl = "https://raw.githubusercontent.com/kaihorsfall-star/deltarune/kaihorsfall-star-patch-1/KaiChat_shared_chat.zip";
+      const loading = document.getElementById("loading");
+
+      try {
+        const response = await fetch(zipUrl, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Unable to download the KaiChat zip archive.");
+        }
+
+        const zip = await JSZip.loadAsync(await response.arrayBuffer());
+        const files = Object.keys(zip.files).filter((f) => !zip.files[f].dir);
+
+        const publicFiles = files.filter((f) => f.startsWith("kaichat/public/"));
+        const allHtml = files.filter((f) => f.toLowerCase().endsWith(".html"));
+        const preferredHtml = allHtml.find((f) => /(^|\/)(index|chat|login|register)\.html$/i.test(f)) || allHtml[0];
+
+        if (!preferredHtml) {
+          throw new Error("No HTML file was found inside the archive.");
+        }
+
+        const htmlEntry = zip.file(preferredHtml);
+        if (!htmlEntry) {
+          throw new Error("The primary HTML file does not exist inside the archive.");
+        }
+
+        let html = await htmlEntry.async("string");
+
+        const assetNames = new Map();
+        for (const filePath of publicFiles) {
+          const name = filePath.replace(/^kaichat\/public\//, "").replace(/^kaichat\//, "");
+          assetNames.set(name, filePath);
+        }
+
+        const resolveAsset = (rawPath) => {
+          if (!rawPath) return null;
+          const clean = rawPath.split("?")[0].split("#")[0].replace(/^\.\//, "");
+          const direct = assetNames.get(clean);
+          if (direct) return direct;
+          const state = `kaichat/public/${clean}`;
+          if (zip.file(state)) return state;
+          const state2 = `kaichat/${clean}`;
+          if (zip.file(state2)) return state2;
+          return null;
+        };
+
+        html = html.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi, (match, href) => {
+          const assetPath = resolveAsset(href);
+          if (!assetPath) return match;
+          const file = zip.file(assetPath);
+          if (!file) return match;
+          return `<style>${await file.async("string")}</style>`;
+        });
+
+        html = html.replace(/<script\s+[^>]*src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
+          const assetPath = resolveAsset(src);
+          if (!assetPath) return match;
+          const file = zip.file(assetPath);
+          if (!file) return match;
+          return `<script>${fileData}</script>`;
+        });
+
+        const styleMap = {};
+        const scriptMap = {};
+
+        for (const filePath of publicFiles) {
+          const name = filePath.replace(/^kaichat\/public\//, "");
+          const file = zip.file(filePath);
+          if (!file) continue;
+          if (filePath.toLowerCase().endsWith(".css")) {
+            styleMap[name] = await file.async("string");
+          }
+          if (filePath.toLowerCase().endsWith(".js")) {
+            scriptMap[name] = await file.async("string");
+          }
+        }
+
+        html = html.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi, (match, href) => {
+          const assetPath = resolveAsset(href);
+          if (!assetPath) return match;
+          const name = assetPath.replace(/^kaichat\/public\//, "");
+          if (styleMap[name]) return `<style>${styleMap[name]}</style>`;
+          return match;
+        });
+
+        html = html.replace(/<script\s+[^>]*src=["']([^"']+)["'][^>]*><\/script>/gi, (match, src) => {
+          const assetPath = resolveAsset(src);
+          if (!assetPath) return match;
+          const name = assetPath.replace(/^kaichat\/public\//, "");
+          if (scriptMap[name]) return `<script>${scriptMap[name]}</script>`;
+          return match;
+        });
+
+        document.open();
+        document.write(html);
+        document.close();
+        loading.remove();
+      } catch (error) {
+        console.error(error);
+        loading.innerHTML = `<span style="color:#fca5a5;">Failed to load archive: ${String(error).replace(/</g, "&lt;")}</span>`;
+      }
+    })();
+  </script>
+</body>
+</html>
